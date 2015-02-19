@@ -37,6 +37,7 @@ public class CustomerGUI extends JFrame {
 		JScrollPane scrollPane = new JScrollPane(ordersTable);
 
 		GridBagConstraints gc = new GridBagConstraints();
+		// I'm a comment for a Git Test!
 		gc.weightx = 1;
 		gc.weighty = 1;
 		gc.fill = GridBagConstraints.NONE;
