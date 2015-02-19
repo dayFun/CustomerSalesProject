@@ -1,0 +1,14 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+def createDir = {
+   println "> creating $it"; it.mkdirs()
+}
+
+task "create-dirs" << {
+   sourceSets.all { set -> set.allSource.srcDirs.each createDir }
+
+   if(project.hasProperty('webAppDir')){ 
+      createDir(webAppDir) 
+   }
+}
