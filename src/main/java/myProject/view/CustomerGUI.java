@@ -1,20 +1,15 @@
 package myProject.view;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 
 import myProject.model.Customer;
-import myProject.model.OrdersTableModel;
 
 public class CustomerGUI extends JFrame {
 
@@ -29,13 +24,7 @@ public class CustomerGUI extends JFrame {
 		customerComboBox.setEditable(false);
 		customerComboBox.setEnabled(false);
 
-		OrdersTableModel tableModel = new OrdersTableModel();
-		JTable ordersTable = new JTable(tableModel);
-		ordersTable.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		ordersTable.setEnabled(false);
-
-		JScrollPane scrollPane = new JScrollPane(ordersTable);
-
+		OrdersTablePanel tablePanel = new OrdersTablePanel();
 		GridBagConstraints gc = new GridBagConstraints();
 		// I'm a comment for a Git Test!
 		gc.weightx = 1;
@@ -65,7 +54,7 @@ public class CustomerGUI extends JFrame {
 		gc.insets = new Insets(0, 0, 0, 0);
 		gc.anchor = GridBagConstraints.LINE_START;
 
-		add(scrollPane, gc);
+		add(tablePanel, gc);
 
 		// //////////////////////Row\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
