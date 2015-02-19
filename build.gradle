@@ -1,14 +1,12 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
-def createDir = {
-   println "> creating $it"; it.mkdirs()
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'mysql:mysql-connector-java:5.1.34'
+    }
 }
-
-task "create-dirs" << {
-   sourceSets.all { set -> set.allSource.srcDirs.each createDir }
-
-   if(project.hasProperty('webAppDir')){ 
-      createDir(webAppDir) 
-   }
 }
