@@ -1,5 +1,7 @@
 package myProject.view;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -12,6 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 public class CustomerGUI extends JFrame {
 
@@ -21,6 +25,8 @@ public class CustomerGUI extends JFrame {
     private OrdersTablePanel ordersTablePanel;
     private TotalSalesPanel totalSalesPanel;
     private JButton clearTableButton;
+    private JSeparator separator;
+    private StatisticsPanel statisticsPanel;
 
     public CustomerGUI() {
         setLayout(new GridBagLayout());
@@ -31,10 +37,19 @@ public class CustomerGUI extends JFrame {
 
         clearTableButton = new JButton("Clear");
 
+        separator = new JSeparator(SwingConstants.HORIZONTAL);
+        separator.setPreferredSize(new Dimension(1, 1));
+        separator.setForeground(Color.GRAY); // top line color
+        separator.setBackground(Color.GRAY); // bottom line color
+        // separator.setPreferredSize(getPreferredSize());
+
+        statisticsPanel = new StatisticsPanel();
+
         layoutComponents();
 
         setJMenuBar(createMenuBar());
         setWindowOptions();
+
     }
 
     private void layoutComponents() {
@@ -79,6 +94,24 @@ public class CustomerGUI extends JFrame {
         add(clearTableButton, gc);
 
         // //////////////////////Row\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+        gc.gridx = 0;
+        gc.gridy = 4;
+        gc.insets = new Insets(0, 0, 0, 0);
+        gc.fill = GridBagConstraints.HORIZONTAL;
+
+        add(separator, gc);
+
+        // //////////////////////Row\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        gc.gridx = 0;
+        gc.gridy = 5;
+        gc.insets = new Insets(0, 0, 0, 0);
+        gc.fill = GridBagConstraints.HORIZONTAL;
+
+        add(statisticsPanel, gc);
+
+        // //////////////////////Row\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
     }
 
     private void setWindowOptions() {
