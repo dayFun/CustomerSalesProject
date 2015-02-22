@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -17,20 +18,23 @@ public class CustomerGUI extends JFrame {
     private static final long serialVersionUID = -729091611169270303L;
 
     private SelectCustomerPanel selectCustomerPanel;
-    private OrdersTablePanel tablePanel;
+    private OrdersTablePanel ordersTablePanel;
+    private TotalSalesPanel totalSalesPanel;
+    private JButton clearTableButton;
 
     public CustomerGUI() {
         setLayout(new GridBagLayout());
 
         selectCustomerPanel = new SelectCustomerPanel();
-        tablePanel = new OrdersTablePanel();
+        ordersTablePanel = new OrdersTablePanel();
+        totalSalesPanel = new TotalSalesPanel();
+
+        clearTableButton = new JButton("Clear");
 
         layoutComponents();
 
         setJMenuBar(createMenuBar());
         setWindowOptions();
-        // pack();
-
     }
 
     private void layoutComponents() {
@@ -48,14 +52,31 @@ public class CustomerGUI extends JFrame {
 
         add(selectCustomerPanel, gc);
 
-
         // //////////////////////Row\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         gc.gridx = 0;
         gc.gridy = 1;
         gc.insets = new Insets(5, 30, 5, 30);
         gc.anchor = GridBagConstraints.CENTER;
 
-        add(tablePanel, gc);
+        add(ordersTablePanel, gc);
+
+        // //////////////////////Row\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+        gc.gridx = 0;
+        gc.gridy = 2;
+        gc.insets = new Insets(0, 0, 0, 0);
+        gc.anchor = GridBagConstraints.LINE_END;
+
+        add(totalSalesPanel, gc);
+
+        // //////////////////////Row\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+        gc.gridx = 0;
+        gc.gridy = 3;
+        gc.insets = new Insets(0, 0, 0, 0);
+        gc.anchor = GridBagConstraints.CENTER;
+
+        add(clearTableButton, gc);
 
         // //////////////////////Row\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     }
