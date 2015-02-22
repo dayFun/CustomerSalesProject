@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 
 import myProject.model.Order;
 
-public class OrdersDAO implements IOrdersDAO {
+public class OrdersDao implements IOrdersDao {
 
 	private static final String SELECT_ORDERS_QUERY = "SELECT s.order_date, s.order_id, s.ship_date, count(i.item_id) As ItemCount, s.total FROM SALES_ORDER s, ITEM i WHERE s.order_id = i.order_id AND s.customer_id = ? GROUP BY s.order_date, s.order_id, s.ship_date, s.total ORDER BY s.order_date, s.order_id";
 	private List<Order> orderList = new ArrayList<>();

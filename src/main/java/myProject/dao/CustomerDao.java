@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 
 import myProject.model.Customer;
 
-public class CustomerDAO implements ICustomerDAO {
+public class CustomerDao implements ICustomerDao {
 
 	private final String SELECT_ALL_CUSTOMERS_QUERY = "SELECT * FROM CUSTOMER ORDER BY Name";
 	private List<Customer> customerList = new ArrayList<>();

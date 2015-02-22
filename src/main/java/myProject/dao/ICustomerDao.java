@@ -4,7 +4,7 @@ import java.util.List;
 
 import myProject.model.Customer;
 
-public interface ICustomerDAO {
+public interface ICustomerDao {
 
 	public List<Customer> getAllCustomers();
 }
