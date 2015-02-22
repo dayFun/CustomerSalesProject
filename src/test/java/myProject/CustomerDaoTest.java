@@ -4,16 +4,16 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import myProject.dao.CustomerDAO;
+import myProject.dao.CustomerDao;
 import myProject.model.Customer;
 
 import org.junit.Test;
 
-public class CustomerDAOTest {
+public class CustomerDaoTest {
 
 	@Test
 	public void testGetAllCustomersReturnsCorrectSize() throws Exception {
-		CustomerDAO testObject = new CustomerDAO();
+		CustomerDao testObject = new CustomerDao();
 		List<Customer> customerList = testObject.getAllCustomers();
 
 		assertEquals(33, customerList.size());

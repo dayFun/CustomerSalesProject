@@ -1,52 +1,49 @@
-package myProject.presenter;
+package myProject.controller;
 
 import java.util.List;
 
-import myProject.dao.ICustomerDAO;
-import myProject.dao.IOrdersDAO;
+import myProject.dao.ICustomerDao;
+import myProject.dao.IOrdersDao;
 import myProject.model.Customer;
 import myProject.model.Order;
-import myProject.model.OrdersTableModel;
 
 public class ServiceJobs implements IServiceJobs {
 
-	private List<Customer> customersList;
-	private List<Order> ordersList;
-	private ICustomerDAO customerDAO;
-	private IOrdersDAO ordersDAO;
-	private OrdersTableModel ordersTableModel;
+    private List<Customer> customersList;
+    private List<Order> ordersList;
+    private ICustomerDao customerDAO;
+    private IOrdersDao ordersDAO;
 
-	public ServiceJobs(ICustomerDAO customerDAO, IOrdersDAO ordersDAO, OrdersTableModel ordersTableModel) {
-		this.customerDAO = customerDAO;
-		this.ordersDAO = ordersDAO;
-		this.ordersTableModel = ordersTableModel;
-	}
+    public ServiceJobs(ICustomerDao customerDAO, IOrdersDao ordersDAO) {
+        this.customerDAO = customerDAO;
+        this.ordersDAO = ordersDAO;
+    }
 
-	@Override
-	public void loadCustomers() {
-		customersList = customerDAO.getAllCustomers();
-	}
+    @Override
+    public void loadCustomers() {
+        customersList = customerDAO.getAllCustomers();
+    }
 
-	@Override
-	public void showOrdersForCustomer(Customer customer) {
-		ordersDAO.getAllOrdersForCustomer(customer.getCustomerId());
-	}
+    @Override
+    public void showOrdersForCustomer(Customer customer) {
+        ordersDAO.getAllOrdersForCustomer(customer.getCustomerId());
+    }
 
-	@Override
-	public void getNumberOfOrdersForCustomer(Customer customer) {
-		// TODO Auto-generated method stub
+    @Override
+    public void getNumberOrdersForCustomer(Customer customer) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void getTotalSalesAmountForCustomer(Customer customer) {
-		// TODO Auto-generated method stub
+    @Override
+    public void getTotalSalesAmountForCustomer(Customer customer) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void clear() {
-		// TODO Auto-generated method stub
-	}
+    @Override
+    public void clear() {
+        // TODO Auto-generated method stub
+    }
 
 }

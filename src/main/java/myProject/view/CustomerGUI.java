@@ -1,71 +1,101 @@
 package myProject.view;
 
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-
-import myProject.model.Customer;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 public class CustomerGUI extends JFrame {
 
-	private static final long serialVersionUID = -729091611169270303L;
+    private static final long serialVersionUID = -729091611169270303L;
 
-	public CustomerGUI() {
-		setLayout(new GridBagLayout());
+    private SelectCustomerPanel selectCustomerPanel;
+    private OrdersTablePanel tablePanel;
 
-		JLabel selectCustomerLabel = new JLabel("Select Customer: ");
-		JComboBox<Customer> customerComboBox = new JComboBox<>();
-		customerComboBox.setPreferredSize(new Dimension(250, 20));
-		customerComboBox.setEditable(false);
-		customerComboBox.setEnabled(false);
+    public CustomerGUI() {
+        setLayout(new GridBagLayout());
 
-		OrdersTablePanel tablePanel = new OrdersTablePanel();
-		GridBagConstraints gc = new GridBagConstraints();
-		// I'm a comment for a Git Test!
-		gc.weightx = 1;
-		gc.weighty = 1;
-		gc.fill = GridBagConstraints.NONE;
+        selectCustomerPanel = new SelectCustomerPanel();
+        tablePanel = new OrdersTablePanel();
 
-		// //////////////////////Row\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-		gc.gridx = 0;
-		gc.gridy = 0;
-		gc.insets = new Insets(15, 0, 10, 5);
-		gc.anchor = GridBagConstraints.FIRST_LINE_END;
+        layoutComponents();
 
-		add(selectCustomerLabel, gc);
+        setJMenuBar(createMenuBar());
+        setWindowOptions();
+        // pack();
 
-		gc.gridx = 1;
-		gc.gridy = 0;
-		gc.insets = new Insets(12, 0, 0, 0);
-		gc.anchor = GridBagConstraints.FIRST_LINE_START;
+    }
 
-		add(customerComboBox, gc);
+    private void layoutComponents() {
+        GridBagConstraints gc = new GridBagConstraints();
 
-		// //////////////////////Row\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-		gc.weightx = 3;
-		gc.weighty = 3;
-		gc.gridx = 1;
-		gc.gridy = 1;
-		gc.insets = new Insets(0, 0, 0, 0);
-		gc.anchor = GridBagConstraints.LINE_START;
+        gc.weightx = 1;
+        gc.weighty = 1;
+        gc.fill = GridBagConstraints.NONE;
 
-		add(tablePanel, gc);
+        // //////////////////////Row\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        gc.gridx = 0;
+        gc.gridy = 0;
+        gc.insets = new Insets(15, 0, 10, 5);
+        gc.anchor = GridBagConstraints.CENTER;
 
-		// //////////////////////Row\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        add(selectCustomerPanel, gc);
 
-		setWindowOptions();
 
-	}
+        // //////////////////////Row\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        gc.gridx = 0;
+        gc.gridy = 1;
+        gc.insets = new Insets(5, 30, 5, 30);
+        gc.anchor = GridBagConstraints.CENTER;
 
-	private void setWindowOptions() {
-		setTitle("Customer Sales History");
-		setSize(800, 600);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-	}
+        add(tablePanel, gc);
+
+        // //////////////////////Row\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    }
+
+    private void setWindowOptions() {
+        setTitle("Customer Sales History");
+        setSize(800, 600);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    private JMenuBar createMenuBar() {
+        JMenuBar menuBar = new JMenuBar();
+        menuBar.add(createFileMenu());
+        menuBar.add(createHelpMenu());
+        return menuBar;
+    }
+
+    private JMenu createHelpMenu() {
+        return new JMenu("Help");
+    }
+
+    private JMenu createFileMenu() {
+        JMenu file = new JMenu("File");
+        file.setMnemonic(KeyEvent.VK_F);
+
+        JMenuItem loadCustomersMenuItem = new JMenuItem("Load Customers");
+
+        file.add(loadCustomersMenuItem);
+
+        JMenuItem exitMenuItem = new JMenuItem("Exit");
+        exitMenuItem.setToolTipText("Exit application");
+        exitMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        file.add(exitMenuItem);
+        return file;
+    }
 }
