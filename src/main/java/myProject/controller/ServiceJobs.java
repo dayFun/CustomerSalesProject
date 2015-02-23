@@ -46,4 +46,8 @@ public class ServiceJobs implements IServiceJobs {
         // TODO Auto-generated method stub
     }
 
+    public List<Customer> getCustomersList() {
+        return customersList;
+    }
+
 }

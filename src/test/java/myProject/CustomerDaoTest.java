@@ -11,11 +11,11 @@ import org.junit.Test;
 
 public class CustomerDaoTest {
 
-	@Test
-	public void testGetAllCustomersReturnsCorrectSize() throws Exception {
-		CustomerDao testObject = new CustomerDao();
-		List<Customer> customerList = testObject.getAllCustomers();
+    @Test
+    public void testGetAllCustomersReturnsCorrectSize() throws Exception {
+        CustomerDao testObject = new CustomerDao();
+        List<Customer> customerList = testObject.getAllCustomers();
 
-		assertEquals(33, customerList.size());
-	}
+        assertEquals(33, customerList.size());
+    }
 }

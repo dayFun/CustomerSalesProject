@@ -5,33 +5,45 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+
+import myProject.controller.Controller;
+import myProject.listeners.ICustomerListener;
+import myProject.listeners.IMenuItemListener;
 
 public class CustomerGUI extends JFrame {
 
     private static final long serialVersionUID = -729091611169270303L;
 
+    private MainMenuBar mainMenuBar;
     private SelectCustomerPanel selectCustomerPanel;
     private OrdersTablePanel ordersTablePanel;
     private TotalSalesPanel totalSalesPanel;
     private JButton clearTableButton;
     private JSeparator separator;
     private StatisticsPanel statisticsPanel;
+    private Controller controller;
+    private IMenuItemListener menuListener;
+    private ICustomerListener selectCustomerListener;
 
     public CustomerGUI() {
         setLayout(new GridBagLayout());
 
+        controller = new Controller();
+
+        initListeners();
+
+        mainMenuBar = new MainMenuBar();
+        mainMenuBar.setMenuItemListener(menuListener);
+        setJMenuBar(mainMenuBar);
+
         selectCustomerPanel = new SelectCustomerPanel();
+        selectCustomerPanel.setCustomerListener(selectCustomerListener);
+
         ordersTablePanel = new OrdersTablePanel();
         totalSalesPanel = new TotalSalesPanel();
 
@@ -41,14 +53,38 @@ public class CustomerGUI extends JFrame {
         separator.setPreferredSize(new Dimension(1, 1));
         separator.setForeground(Color.GRAY); // top line color
         separator.setBackground(Color.GRAY); // bottom line color
-        // separator.setPreferredSize(getPreferredSize());
 
         statisticsPanel = new StatisticsPanel();
 
         layoutComponents();
 
-        setJMenuBar(createMenuBar());
         setWindowOptions();
+
+    }
+
+    private void initListeners() {
+        initMenuItemListener();
+        initSelectCustomerListener();
+    }
+
+    private void initSelectCustomerListener() {
+        selectCustomerListener = new ICustomerListener() {
+            public void doStuff(LoadCustomersEvent e) {
+                System.err.println("Caught load customers event");
+            }
+        };
+    }
+
+    private void initMenuItemListener() {
+        menuListener = new IMenuItemListener() {
+            public void getCustomersFromDatabase() {
+                controller.getCustomers();
+            }
+
+            public void exitApplication() {
+                controller.exit();
+            }
+        };
 
     }
 
@@ -109,9 +145,6 @@ public class CustomerGUI extends JFrame {
         gc.fill = GridBagConstraints.HORIZONTAL;
 
         add(statisticsPanel, gc);
-
-        // //////////////////////Row\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
     }
 
     private void setWindowOptions() {
@@ -119,37 +152,5 @@ public class CustomerGUI extends JFrame {
         setSize(800, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
-
-    private JMenuBar createMenuBar() {
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.add(createFileMenu());
-        menuBar.add(createHelpMenu());
-        return menuBar;
-    }
-
-    private JMenu createHelpMenu() {
-        return new JMenu("Help");
-    }
-
-    private JMenu createFileMenu() {
-        JMenu file = new JMenu("File");
-        file.setMnemonic(KeyEvent.VK_F);
-
-        JMenuItem loadCustomersMenuItem = new JMenuItem("Load Customers");
-
-        file.add(loadCustomersMenuItem);
-
-        JMenuItem exitMenuItem = new JMenuItem("Exit");
-        exitMenuItem.setToolTipText("Exit application");
-        exitMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-
-        file.add(exitMenuItem);
-        return file;
     }
 }
