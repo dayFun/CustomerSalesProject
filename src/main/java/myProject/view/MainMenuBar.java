@@ -15,14 +15,12 @@ public class MainMenuBar extends JMenuBar implements ActionListener {
     private static final long serialVersionUID = -5565623731124527013L;
     private JMenuItem loadCustomersMenuItem;
     private JMenuItem exitMenuItem;
-    private JMenu helpMenu;
+    private JMenuItem preferencesMenuItem;
     private IMenuItemListener menuItemListener;
 
     public MainMenuBar() {
         add(createFileMenu());
-
-        helpMenu = new JMenu("Help");
-        add(helpMenu);
+        add(createHelpMenu());
     }
 
     private JMenu createFileMenu() {
@@ -41,18 +39,34 @@ public class MainMenuBar extends JMenuBar implements ActionListener {
         return file;
     }
 
+    private JMenu createHelpMenu() {
+        JMenu help = new JMenu("Help");
+        help.setMnemonic(KeyEvent.VK_F);
+
+        preferencesMenuItem = new JMenu("Preferences...");
+        preferencesMenuItem.addActionListener(this);
+
+        help.add(preferencesMenuItem);
+        return help;
+    }
+
     public void setMenuItemListener(IMenuItemListener menuItemListener) {
         this.menuItemListener = menuItemListener;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.err.println("Source: " + e.getSource());
         if (e.getSource() == exitMenuItem) {
             menuItemListener.exitApplication();
         }
 
         if (e.getSource() == loadCustomersMenuItem) {
             menuItemListener.getCustomersFromDatabase();
+        }
+
+        if (e.getSource() == preferencesMenuItem) {
+            menuItemListener.showPreferencesDialog();
         }
 
     }

@@ -20,6 +20,7 @@ public class CustomerGUI extends JFrame {
     private static final long serialVersionUID = -729091611169270303L;
 
     private MainMenuBar mainMenuBar;
+    private PreferencesDialog preferencesDialog;
     private SelectCustomerPanel selectCustomerPanel;
     private OrdersTablePanel ordersTablePanel;
     private TotalSalesPanel totalSalesPanel;
@@ -40,6 +41,8 @@ public class CustomerGUI extends JFrame {
         mainMenuBar = new MainMenuBar();
         mainMenuBar.setMenuItemListener(menuListener);
         setJMenuBar(mainMenuBar);
+
+        preferencesDialog = new PreferencesDialog(this);
 
         selectCustomerPanel = new SelectCustomerPanel();
         selectCustomerPanel.setCustomerListener(selectCustomerListener);
@@ -79,6 +82,10 @@ public class CustomerGUI extends JFrame {
         menuListener = new IMenuItemListener() {
             public void getCustomersFromDatabase() {
                 controller.getCustomers();
+            }
+
+            public void showPreferencesDialog() {
+                preferencesDialog.setVisible(true);
             }
 
             public void exitApplication() {
