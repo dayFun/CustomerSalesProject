@@ -43,7 +43,7 @@ public class MainMenuBar extends JMenuBar implements ActionListener {
         JMenu help = new JMenu("Help");
         help.setMnemonic(KeyEvent.VK_F);
 
-        preferencesMenuItem = new JMenu("Preferences...");
+        preferencesMenuItem = new JMenuItem("Preferences");
         preferencesMenuItem.addActionListener(this);
 
         help.add(preferencesMenuItem);
