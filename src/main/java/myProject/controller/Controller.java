@@ -1,23 +1,25 @@
 package myProject.controller;
 
+import java.util.List;
+
 import myProject.dao.CustomerDao;
 import myProject.dao.OrdersDao;
-import myProject.view.CustomerGUI;
-import myProject.view.LoadCustomersEvent;
+import myProject.model.Customer;
 
 public class Controller {
 
-    private ServiceJobs serviceJobs;
-    private CustomerGUI customerGUI;
+    private DatabaseServiceJobs dbServiceJobs;
 
     public Controller() {
-        serviceJobs = new ServiceJobs(new CustomerDao(), new OrdersDao());
+        dbServiceJobs = new DatabaseServiceJobs(new CustomerDao(), new OrdersDao());
     }
 
-    public void getCustomers() {
-        serviceJobs.loadCustomers();
-        System.err.println("About to create load customers event");
-        LoadCustomersEvent customersEvent = new LoadCustomersEvent(this, serviceJobs.getCustomersList());
+    public List<Customer> getCustomers() {
+        return dbServiceJobs.getCustomersList();
+    }
+
+    public void loadCustomers() {
+        dbServiceJobs.loadCustomers();
     }
 
     public void exit() {

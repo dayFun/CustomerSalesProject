@@ -7,14 +7,14 @@ import myProject.dao.IOrdersDao;
 import myProject.model.Customer;
 import myProject.model.Order;
 
-public class ServiceJobs implements IServiceJobs {
+public class DatabaseServiceJobs implements IServiceJobs {
 
     private List<Customer> customersList;
     private List<Order> ordersList;
     private ICustomerDao customerDAO;
     private IOrdersDao ordersDAO;
 
-    public ServiceJobs(ICustomerDao customerDAO, IOrdersDao ordersDAO) {
+    public DatabaseServiceJobs(ICustomerDao customerDAO, IOrdersDao ordersDAO) {
         this.customerDAO = customerDAO;
         this.ordersDAO = ordersDAO;
     }

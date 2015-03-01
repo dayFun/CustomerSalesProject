@@ -2,8 +2,6 @@ package myProject.view;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -12,7 +10,7 @@ import javax.swing.JPanel;
 import myProject.listeners.ICustomerListener;
 import myProject.model.Customer;
 
-public class SelectCustomerPanel extends JPanel implements ActionListener {
+public class SelectCustomerPanel extends JPanel {
 
     private static final long serialVersionUID = -4586190622428044897L;
 
@@ -26,7 +24,6 @@ public class SelectCustomerPanel extends JPanel implements ActionListener {
         selectCustomerLabel = new JLabel("Select Customer: ");
 
         customerComboBox = new JComboBox<>();
-        customerComboBox.addActionListener(this);
         customerComboBox.setPreferredSize(new Dimension(250, 20));
         customerComboBox.setEditable(false);
         customerComboBox.setEnabled(false);
@@ -39,8 +36,11 @@ public class SelectCustomerPanel extends JPanel implements ActionListener {
         this.customerListener = customerListener;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
+    public void populateComboBox(LoadCustomersEvent e) {
+        for (Customer customer : e.getCustomerList()) {
+            customerComboBox.addItem(customer);
+        }
+        customerComboBox.setEnabled(true);
+        customerComboBox.setSelectedIndex(-1);
     }
 }

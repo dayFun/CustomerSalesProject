@@ -9,6 +9,7 @@ import java.util.prefs.Preferences;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
@@ -90,8 +91,14 @@ public class CustomerGUI extends JFrame {
 
     private void initSelectCustomerListener() {
         selectCustomerListener = new ICustomerListener() {
-            public void doStuff(LoadCustomersEvent e) {
-                System.err.println("Caught load customers event");
+            @Override
+            public void customersLoaded(LoadCustomersEvent e) {
+                selectCustomerPanel.populateComboBox(e);
+            }
+
+            @Override
+            public void selectedCustomerEvent() {
+
             }
         };
     }
@@ -99,7 +106,9 @@ public class CustomerGUI extends JFrame {
     private void initMenuItemListener() {
         menuListener = new IMenuItemListener() {
             public void getCustomersFromDatabase() {
-                controller.getCustomers();
+                controller.loadCustomers();
+                selectCustomerListener.customersLoaded(new LoadCustomersEvent(this, controller.getCustomers()));
+
             }
 
             public void showPreferencesDialog() {
@@ -107,7 +116,13 @@ public class CustomerGUI extends JFrame {
             }
 
             public void exitApplication() {
-                controller.exit();
+                int action =
+                        JOptionPane.showConfirmDialog(CustomerGUI.this, "Are you sure you want to exit the application?", "Confirm Exit",
+                                JOptionPane.OK_CANCEL_OPTION);
+
+                if (action == JOptionPane.OK_OPTION) {
+                    controller.exit();
+                }
             }
         };
 
