@@ -16,10 +16,14 @@ public class OrdersTableModel extends AbstractTableModel {
         }
     }
 
+    public List<Order> getOrdersList() {
+        return ordersList;
+    }
+
     @Override
     public int getRowCount() {
-        if (ordersList != null) {
-            return ordersList.size();
+        if (getOrdersList() != null) {
+            return getOrdersList().size();
         }
         return 0;
     }
@@ -31,7 +35,7 @@ public class OrdersTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Order order = ordersList.get(rowIndex);
+        Order order = getOrdersList().get(rowIndex);
 
         switch (columnIndex) {
             case 0:
@@ -54,8 +58,10 @@ public class OrdersTableModel extends AbstractTableModel {
         return columnHeaders[column];
     }
 
-    // public void clear() {
-    // ordersList = null;
-    // }
+    public void clear() {
+        if (ordersList != null) {
+            ordersList.clear();
+        }
+    }
 
 }

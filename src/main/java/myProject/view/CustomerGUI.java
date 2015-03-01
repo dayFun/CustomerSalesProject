@@ -76,6 +76,12 @@ public class CustomerGUI extends JFrame {
 
     }
 
+    private void initListeners() {
+        initMenuItemListener();
+        initSelectCustomerListener();
+        initPreferencesListener();
+    }
+
     private void setDefaultPreferences() {
         String user = preferences.get("url", "");
         String password = preferences.get("password", "");
@@ -83,13 +89,6 @@ public class CustomerGUI extends JFrame {
 
         preferencesDialog.setDefaultPreferences(user, password, port);
     }
-
-    private void initListeners() {
-        initMenuItemListener();
-        initSelectCustomerListener();
-        initPreferencesListener();
-    }
-
 
     private void initSelectCustomerListener() {
         selectCustomerListener = new ICustomerListener() {
@@ -102,7 +101,7 @@ public class CustomerGUI extends JFrame {
             public void selectedCustomerEvent(ItemEvent e) {
                 Customer selectedCustomer = (Customer) e.getItem();
                 controller.loadOrdersForCustomer(selectedCustomer);
-                // ordersTablePanel.clear();
+                ordersTablePanel.clear();
                 ordersTablePanel.setData(controller.getOrdersForCustomer());
                 ordersTablePanel.refresh();
             }

@@ -36,7 +36,7 @@ public class OrdersTablePanel extends JPanel {
         tableModel.fireTableDataChanged();
     }
 
-    // public void clear() {
-    // tableModel.clear();
-    // }
+    public void clear() {
+        tableModel.clear();
+    }
 }
