@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.prefs.Preferences;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,6 +15,7 @@ import javax.swing.SwingConstants;
 import myProject.controller.Controller;
 import myProject.listeners.ICustomerListener;
 import myProject.listeners.IMenuItemListener;
+import myProject.listeners.IPreferencesListener;
 
 public class CustomerGUI extends JFrame {
 
@@ -30,11 +32,15 @@ public class CustomerGUI extends JFrame {
     private Controller controller;
     private IMenuItemListener menuListener;
     private ICustomerListener selectCustomerListener;
+    private IPreferencesListener preferencesListener;
+    private Preferences preferences;
 
     public CustomerGUI() {
         setLayout(new GridBagLayout());
 
         controller = new Controller();
+
+        preferences = Preferences.userRoot().node("db");
 
         initListeners();
 
@@ -43,6 +49,8 @@ public class CustomerGUI extends JFrame {
         setJMenuBar(mainMenuBar);
 
         preferencesDialog = new PreferencesDialog(this);
+        preferencesDialog.setPreferencesListener(preferencesListener);
+        setDefaultPreferences();
 
         selectCustomerPanel = new SelectCustomerPanel();
         selectCustomerPanel.setCustomerListener(selectCustomerListener);
@@ -65,10 +73,20 @@ public class CustomerGUI extends JFrame {
 
     }
 
+    private void setDefaultPreferences() {
+        String user = preferences.get("url", "");
+        String password = preferences.get("password", "");
+        Integer port = preferences.getInt("port", 3306);
+
+        preferencesDialog.setDefaultPreferences(user, password, port);
+    }
+
     private void initListeners() {
         initMenuItemListener();
         initSelectCustomerListener();
+        initPreferencesListener();
     }
+
 
     private void initSelectCustomerListener() {
         selectCustomerListener = new ICustomerListener() {
@@ -90,6 +108,18 @@ public class CustomerGUI extends JFrame {
 
             public void exitApplication() {
                 controller.exit();
+            }
+        };
+
+    }
+
+    private void initPreferencesListener() {
+        preferencesListener = new IPreferencesListener() {
+            @Override
+            public void preferencesSet(String user, String password, int port) {
+                preferences.put("url", user);
+                preferences.put("password", password);
+                preferences.putInt("port", port);
             }
         };
 
