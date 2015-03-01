@@ -14,26 +14,29 @@ import myProject.model.OrdersTableModel;
 
 public class OrdersTablePanel extends JPanel {
 
-	private static final long serialVersionUID = 4231571761716281861L;
-	private JTable table;
-	private OrdersTableModel tableModel;
+    private static final long serialVersionUID = 4231571761716281861L;
+    private JTable table;
+    private OrdersTableModel tableModel;
 
-	public OrdersTablePanel() {
-		tableModel = new OrdersTableModel();
-		table = new JTable(tableModel);
-		table.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    public OrdersTablePanel() {
+        tableModel = new OrdersTableModel();
+        table = new JTable(tableModel);
+        table.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-		setLayout(new BorderLayout());
+        setLayout(new BorderLayout());
 
-		add(new JScrollPane(table), BorderLayout.CENTER);
-	}
+        add(new JScrollPane(table), BorderLayout.CENTER);
+    }
 
-	public void setData(List<Order> dbOrdersList) {
-		tableModel.setData(dbOrdersList);
-	}
+    public void setData(List<Order> dbOrdersList) {
+        tableModel.setData(dbOrdersList);
+    }
 
-	public void refresh() {
-		tableModel.fireTableDataChanged();
-	}
+    public void refresh() {
+        tableModel.fireTableDataChanged();
+    }
 
+    // public void clear() {
+    // tableModel.clear();
+    // }
 }

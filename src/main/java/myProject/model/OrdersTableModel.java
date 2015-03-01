@@ -54,4 +54,8 @@ public class OrdersTableModel extends AbstractTableModel {
         return columnHeaders[column];
     }
 
+    // public void clear() {
+    // ordersList = null;
+    // }
+
 }

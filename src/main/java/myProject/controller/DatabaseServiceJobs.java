@@ -30,13 +30,12 @@ public class DatabaseServiceJobs implements IServiceJobs {
     }
 
     @Override
-    public void getNumberOrdersForCustomer(Customer customer) {
-        // TODO Auto-generated method stub
-
+    public void loadOrdersForCustomer(Customer customer) {
+        ordersList = ordersDAO.getAllOrdersForCustomer(customer.getCustomerId());
     }
 
     @Override
-    public void getTotalSalesAmountForCustomer(Customer customer) {
+    public void getTotalSalesForCustomer(Customer customer) {
         // TODO Auto-generated method stub
 
     }
@@ -48,6 +47,10 @@ public class DatabaseServiceJobs implements IServiceJobs {
 
     public List<Customer> getCustomersList() {
         return customersList;
+    }
+
+    public List<Order> getOrdersListForCustomer() {
+        return ordersList;
     }
 
 }

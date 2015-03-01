@@ -8,9 +8,9 @@ public interface IServiceJobs {
 
 	public void showOrdersForCustomer(Customer customer);
 
-	public void getNumberOrdersForCustomer(Customer customer);
+	public void loadOrdersForCustomer(Customer customer);
 
-	public void getTotalSalesAmountForCustomer(Customer customer);
+	public void getTotalSalesForCustomer(Customer customer);
 
 	public void clear();
 

@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ItemEvent;
 import java.util.prefs.Preferences;
 
 import javax.swing.JButton;
@@ -17,6 +18,7 @@ import myProject.controller.Controller;
 import myProject.listeners.ICustomerListener;
 import myProject.listeners.IMenuItemListener;
 import myProject.listeners.IPreferencesListener;
+import myProject.model.Customer;
 
 public class CustomerGUI extends JFrame {
 
@@ -97,8 +99,12 @@ public class CustomerGUI extends JFrame {
             }
 
             @Override
-            public void selectedCustomerEvent() {
-
+            public void selectedCustomerEvent(ItemEvent e) {
+                Customer selectedCustomer = (Customer) e.getItem();
+                controller.loadOrdersForCustomer(selectedCustomer);
+                // ordersTablePanel.clear();
+                ordersTablePanel.setData(controller.getOrdersForCustomer());
+                ordersTablePanel.refresh();
             }
         };
     }
