@@ -9,7 +9,9 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JSpinner;
+import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
 public class PreferencesDialog extends JDialog {
@@ -19,6 +21,8 @@ public class PreferencesDialog extends JDialog {
     private JButton okButton;
     private JButton canelButton;
     private JSpinner portSpinner;
+    private JTextField userField;
+    private JPasswordField passwordfield;
 
     public PreferencesDialog(JFrame parent) {
         super(parent, "Database Settings", false);
@@ -28,8 +32,6 @@ public class PreferencesDialog extends JDialog {
         canelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Integer value = (Integer) portSpinner.getValue();
-                System.out.println(value);
                 setVisible(false);
             }
         });
@@ -37,14 +39,19 @@ public class PreferencesDialog extends JDialog {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String username = userField.getText();
                 Integer value = (Integer) portSpinner.getValue();
-                System.out.println(value);
+                char[] password = passwordfield.getPassword(); //wrap in new String(password) to get readable, non-hashed version
+             
                 setVisible(false);
             }
         });
 
         SpinnerNumberModel spinnerModel = new SpinnerNumberModel(3306, 0, 9999, 1);
         portSpinner = new JSpinner(spinnerModel);
+
+        userField = new JTextField(10);
+        passwordfield = new JPasswordField(10);
 
         setLayout(new GridBagLayout());
 
@@ -63,16 +70,37 @@ public class PreferencesDialog extends JDialog {
         gc.gridy = 0;
         gc.gridx = 0;
 
+        add(new JLabel("Username: "), gc);
+
+        gc.gridy = 0;
+        gc.gridx = 1;
+        add(userField, gc);
+
+        // \\//Row\\//\\
+        gc.gridy = 1;
+        gc.gridx = 0;
+        add(new JLabel("Password: "), gc);
+
+        gc.gridy = 1;
+        gc.gridx = 1;
+        add(passwordfield, gc);
+
+        // \\//Row\\//\\
+        gc.gridy = 2;
+        gc.gridx = 0;
         add(new JLabel("Port: "), gc);
 
         gc.gridx = 1;
+        gc.gridy = 2;
         add(portSpinner, gc);
 
-        gc.gridy = 1;
+        // \\//Row\\//\\
+        gc.gridy = 3;
         gc.gridx = 0;
 
         add(okButton, gc);
 
+        gc.gridy = 3;
         gc.gridx = 1;
 
         add(canelButton, gc);
