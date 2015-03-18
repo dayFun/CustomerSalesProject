@@ -32,11 +32,12 @@ public class Controller {
             @Override
             public void populateComboBox(LoadCustomersEvent e) {
                 System.err.println("Did I make it here???");
-
             }
 
             @Override
-            public void selectedCustomerEvent(ItemEvent e) {}
+            public void selectedCustomerEvent(ItemEvent e) {
+
+            }
         });
     }
 

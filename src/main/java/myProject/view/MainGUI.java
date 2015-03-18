@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
-import myProject.controller.Controller;
 import myProject.listeners.ILoadCustomersListener;
 import myProject.listeners.IMenuItemListener;
 import myProject.listeners.IPreferencesListener;
@@ -30,7 +29,6 @@ public class MainGUI extends JFrame {
     private JButton clearTableButton;
     private JSeparator separator;
     private StatisticsPanel statisticsPanel;
-    private Controller controller;
     private IMenuItemListener menuListener;
     private ISelectCustomerListener selectCustomerListener;
     private IPreferencesListener preferencesListener;
@@ -41,8 +39,6 @@ public class MainGUI extends JFrame {
         setLayout(new GridBagLayout());
 
         preferences = Preferences.userRoot().node("db");
-
-        initListeners();
 
         mainMenuBar = new MainMenuBar();
         mainMenuBar.setMenuItemListener(menuListener);
@@ -72,7 +68,6 @@ public class MainGUI extends JFrame {
         setWindowOptions();
     }
 
-
     public void setLoadCustomersListener(final ILoadCustomersListener loadCustomersListener) {
         mainMenuBar.setLoadCustomersListener(loadCustomersListener);
     }
@@ -81,12 +76,6 @@ public class MainGUI extends JFrame {
         selectCustomerPanel.setSelectCustomerListener(selectCustomerListener);
     }
 
-
-    private void initListeners() {
-        // initMenuItemListener();
-        // initSelectCustomerListener();
-        // initPreferencesListener();
-    }
 
     private void setDefaultPreferences() {
         String user = preferences.get("url", "");
