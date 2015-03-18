@@ -38,6 +38,7 @@ public class CustomerGUI extends JFrame {
     private IPreferencesListener preferencesListener;
     private Preferences preferences;
 
+
     public CustomerGUI() {
         setLayout(new GridBagLayout());
 
@@ -74,6 +75,35 @@ public class CustomerGUI extends JFrame {
 
         setWindowOptions();
 
+    }
+
+
+    public void setLoadCustomersListener(final ILoadCustomersListener l) {
+        mainMenuBar.setMenuItemListener(new IMenuItemListener() {
+
+            @Override
+            public void getCustomersFromDatabase() {
+                l.load();
+
+            }
+
+            @Override
+            public void showPreferencesDialog() {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void exitApplication() {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+    }
+
+    public interface ILoadCustomersListener {
+        public void load();
     }
 
     private void initListeners() {
