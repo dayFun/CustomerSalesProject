@@ -2,16 +2,19 @@ package myProject;
 
 import java.awt.EventQueue;
 
-import myProject.view.CustomerGUI;
+import myProject.controller.Controller;
+import myProject.view.MainGUI;
 
 public class Main {
 
     public static void main(String[] args) {
 
         EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                CustomerGUI frame = new CustomerGUI();
-                frame.setVisible(true);
+                MainGUI mainGUI = new MainGUI();
+                Controller controller = new Controller(mainGUI);
+                controller.getCustomerGUI().setVisible(true);
             }
         });
 

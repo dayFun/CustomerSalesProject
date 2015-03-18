@@ -1,4 +1,4 @@
-package myProject.view;
+package myProject.events;
 
 import java.util.EventObject;
 import java.util.List;
@@ -22,6 +22,4 @@ public class LoadCustomersEvent extends EventObject {
     public void setCustomerList(List<Customer> customerList) {
         this.customerList = customerList;
     }
-
-
 }

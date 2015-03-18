@@ -9,7 +9,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import myProject.listeners.ICustomerListener;
+import myProject.events.LoadCustomersEvent;
+import myProject.listeners.ISelectCustomerListener;
 import myProject.model.Customer;
 
 public class SelectCustomerPanel extends JPanel {
@@ -18,7 +19,7 @@ public class SelectCustomerPanel extends JPanel {
 
     private JLabel selectCustomerLabel;
     private JComboBox<Customer> customerComboBox;
-    private ICustomerListener customerListener;
+    private ISelectCustomerListener customerListener;
 
     public SelectCustomerPanel() {
         setLayout(new FlowLayout());
@@ -34,7 +35,7 @@ public class SelectCustomerPanel extends JPanel {
         add(customerComboBox);
     }
 
-    public void setCustomerListener(ICustomerListener customerListener) {
+    public void setSelectCustomerListener(ISelectCustomerListener customerListener) {
         this.customerListener = customerListener;
     }
 

@@ -1,7 +1,5 @@
 package myProject.view;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
@@ -10,15 +8,17 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import myProject.listeners.ILoadCustomersListener;
 import myProject.listeners.IMenuItemListener;
 
-public class MainMenuBar extends JMenuBar implements ActionListener {
+public class MainMenuBar extends JMenuBar {
 
     private static final long serialVersionUID = -5565623731124527013L;
     private JMenuItem loadCustomersMenuItem;
     private JMenuItem exitMenuItem;
     private JMenuItem preferencesMenuItem;
     private IMenuItemListener menuItemListener;
+    private ILoadCustomersListener loadCustomersListener;
 
     public MainMenuBar() {
         add(createFileMenu());
@@ -30,11 +30,11 @@ public class MainMenuBar extends JMenuBar implements ActionListener {
         file.setMnemonic(KeyEvent.VK_F);
 
         loadCustomersMenuItem = new JMenuItem("Load Customers");
-        loadCustomersMenuItem.addActionListener(this);
+        // loadCustomersMenuItem.addActionListener(this);
         file.add(loadCustomersMenuItem);
 
         exitMenuItem = new JMenuItem("Exit");
-        exitMenuItem.addActionListener(this);
+        // exitMenuItem.addActionListener(this);
         exitMenuItem.setToolTipText("Exit application");
         file.add(exitMenuItem);
 
@@ -46,7 +46,7 @@ public class MainMenuBar extends JMenuBar implements ActionListener {
         help.setMnemonic(KeyEvent.VK_F);
 
         preferencesMenuItem = new JMenuItem("Preferences");
-        preferencesMenuItem.addActionListener(this);
+        // preferencesMenuItem.addActionListener(this);
 
         KeyStroke ctrlP = KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_MASK);
         preferencesMenuItem.setAccelerator(ctrlP);
@@ -59,19 +59,23 @@ public class MainMenuBar extends JMenuBar implements ActionListener {
         this.menuItemListener = menuItemListener;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == exitMenuItem) {
-            menuItemListener.exitApplication();
-        }
-
-        if (e.getSource() == loadCustomersMenuItem) {
-            menuItemListener.getCustomersFromDatabase();
-        }
-
-        if (e.getSource() == preferencesMenuItem) {
-            menuItemListener.showPreferencesDialog();
-        }
-
+    public void setLoadCustomersListener(ILoadCustomersListener loadCustomersListener) {
+        this.loadCustomersListener = loadCustomersListener;
     }
+
+    // @Override
+    // public void actionPerformed(ActionEvent e) {
+    // if (e.getSource() == exitMenuItem) {
+    // menuItemListener.exitApplication();
+    // }
+    //
+    // if (e.getSource() == loadCustomersMenuItem) {
+    // loadCustomersListener.loadCustomers();
+    // }
+    //
+    // if (e.getSource() == preferencesMenuItem) {
+    // menuItemListener.showPreferencesDialog();
+    // }
+    //
+    // }
 }

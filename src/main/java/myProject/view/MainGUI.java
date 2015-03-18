@@ -5,22 +5,20 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ItemEvent;
 import java.util.prefs.Preferences;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
 import myProject.controller.Controller;
-import myProject.listeners.ICustomerListener;
+import myProject.listeners.ILoadCustomersListener;
 import myProject.listeners.IMenuItemListener;
 import myProject.listeners.IPreferencesListener;
-import myProject.model.Customer;
+import myProject.listeners.ISelectCustomerListener;
 
-public class CustomerGUI extends JFrame {
+public class MainGUI extends JFrame {
 
     private static final long serialVersionUID = -729091611169270303L;
 
@@ -34,15 +32,13 @@ public class CustomerGUI extends JFrame {
     private StatisticsPanel statisticsPanel;
     private Controller controller;
     private IMenuItemListener menuListener;
-    private ICustomerListener selectCustomerListener;
+    private ISelectCustomerListener selectCustomerListener;
     private IPreferencesListener preferencesListener;
     private Preferences preferences;
 
 
-    public CustomerGUI() {
+    public MainGUI() {
         setLayout(new GridBagLayout());
-
-        controller = new Controller();
 
         preferences = Preferences.userRoot().node("db");
 
@@ -57,7 +53,7 @@ public class CustomerGUI extends JFrame {
         setDefaultPreferences();
 
         selectCustomerPanel = new SelectCustomerPanel();
-        selectCustomerPanel.setCustomerListener(selectCustomerListener);
+        selectCustomerPanel.setSelectCustomerListener(selectCustomerListener);
 
         ordersTablePanel = new OrdersTablePanel();
         totalSalesPanel = new TotalSalesPanel();
@@ -74,42 +70,22 @@ public class CustomerGUI extends JFrame {
         layoutComponents();
 
         setWindowOptions();
-
     }
 
 
-    public void setLoadCustomersListener(final ILoadCustomersListener l) {
-        mainMenuBar.setMenuItemListener(new IMenuItemListener() {
-
-            @Override
-            public void getCustomersFromDatabase() {
-                l.load();
-
-            }
-
-            @Override
-            public void showPreferencesDialog() {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void exitApplication() {
-                // TODO Auto-generated method stub
-
-            }
-
-        });
+    public void setLoadCustomersListener(final ILoadCustomersListener loadCustomersListener) {
+        mainMenuBar.setLoadCustomersListener(loadCustomersListener);
     }
 
-    public interface ILoadCustomersListener {
-        public void load();
+    public void setSelectCustomerListener(final ISelectCustomerListener selectCustomerListener) {
+        selectCustomerPanel.setSelectCustomerListener(selectCustomerListener);
     }
+
 
     private void initListeners() {
-        initMenuItemListener();
-        initSelectCustomerListener();
-        initPreferencesListener();
+        // initMenuItemListener();
+        // initSelectCustomerListener();
+        // initPreferencesListener();
     }
 
     private void setDefaultPreferences() {
@@ -120,60 +96,64 @@ public class CustomerGUI extends JFrame {
         preferencesDialog.setDefaultPreferences(user, password, port);
     }
 
-    private void initSelectCustomerListener() {
-        selectCustomerListener = new ICustomerListener() {
-            @Override
-            public void customersLoaded(LoadCustomersEvent e) {
-                selectCustomerPanel.populateComboBox(e);
-            }
+    // private void initSelectCustomerListener() {
+    // selectCustomerListener = new ICustomerListener() {
+    // @Override
+    // public void customersLoaded(LoadCustomersEvent e) {
+    // selectCustomerPanel.populateComboBox(e);
+    // }
+    //
+    // @Override
+    // public void selectedCustomerEvent(ItemEvent e) {
+    // Customer selectedCustomer = (Customer) e.getItem();
+    // controller.loadOrdersForCustomer(selectedCustomer);
+    // ordersTablePanel.clear();
+    // ordersTablePanel.setData(controller.getOrdersForCustomer());
+    // ordersTablePanel.refresh();
+    // }
+    // };
+    // }
 
-            @Override
-            public void selectedCustomerEvent(ItemEvent e) {
-                Customer selectedCustomer = (Customer) e.getItem();
-                controller.loadOrdersForCustomer(selectedCustomer);
-                ordersTablePanel.clear();
-                ordersTablePanel.setData(controller.getOrdersForCustomer());
-                ordersTablePanel.refresh();
-            }
-        };
-    }
-
-    private void initMenuItemListener() {
-        menuListener = new IMenuItemListener() {
-            public void getCustomersFromDatabase() {
-                controller.loadCustomers();
-                selectCustomerListener.customersLoaded(new LoadCustomersEvent(this, controller.getCustomers()));
-
-            }
-
-            public void showPreferencesDialog() {
-                preferencesDialog.setVisible(true);
-            }
-
-            public void exitApplication() {
-                int action =
-                        JOptionPane.showConfirmDialog(CustomerGUI.this, "Are you sure you want to exit the application?", "Confirm Exit",
-                                JOptionPane.OK_CANCEL_OPTION);
-
-                if (action == JOptionPane.OK_OPTION) {
-                    controller.exit();
-                }
-            }
-        };
-
-    }
-
-    private void initPreferencesListener() {
-        preferencesListener = new IPreferencesListener() {
-            @Override
-            public void preferencesSet(String user, String password, int port) {
-                preferences.put("url", user);
-                preferences.put("password", password);
-                preferences.putInt("port", port);
-            }
-        };
-
-    }
+    // private void initMenuItemListener() {
+    // menuListener = new IMenuItemListener() {
+    // @Override
+    // public void getCustomersFromDatabase() {
+    // controller.loadCustomers();
+    // selectCustomerListener.customersLoaded(new LoadCustomersEvent(this,
+    // controller.getCustomers()));
+    //
+    // }
+    //
+    // @Override
+    // public void showPreferencesDialog() {
+    // preferencesDialog.setVisible(true);
+    // }
+    //
+    // @Override
+    // public void exitApplication() {
+    // int action =
+    // JOptionPane.showConfirmDialog(MainGUI.this, "Are you sure you want to exit the application?",
+    // "Confirm Exit", JOptionPane.OK_CANCEL_OPTION);
+    //
+    // if (action == JOptionPane.OK_OPTION) {
+    // controller.exit();
+    // }
+    // }
+    // };
+    //
+    // }
+    //
+    // private void initPreferencesListener() {
+    // preferencesListener = new IPreferencesListener() {
+    // @Override
+    // public void preferencesSet(String user, String password, int port) {
+    // preferences.put("url", user);
+    // preferences.put("password", password);
+    // preferences.putInt("port", port);
+    // }
+    // };
+    //
+    // }
 
     private void layoutComponents() {
         GridBagConstraints gc = new GridBagConstraints();

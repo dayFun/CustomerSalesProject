@@ -5,12 +5,9 @@ import java.util.List;
 import myProject.dao.ICustomerDao;
 import myProject.dao.IOrdersDao;
 import myProject.model.Customer;
-import myProject.model.Order;
 
 public class DatabaseServiceJobs implements IServiceJobs {
 
-    private List<Customer> customersList;
-    private List<Order> ordersList;
     private ICustomerDao customerDAO;
     private IOrdersDao ordersDAO;
 
@@ -20,8 +17,8 @@ public class DatabaseServiceJobs implements IServiceJobs {
     }
 
     @Override
-    public void loadCustomers() {
-        customersList = customerDAO.getAllCustomers();
+    public List<Customer> loadCustomers() {
+        return customerDAO.getAllCustomers();
     }
 
     @Override
@@ -31,7 +28,7 @@ public class DatabaseServiceJobs implements IServiceJobs {
 
     @Override
     public void loadOrdersForCustomer(Customer customer) {
-        ordersList = ordersDAO.getAllOrdersForCustomer(customer.getCustomerId());
+        // ordersList = ordersDAO.getAllOrdersForCustomer(customer.getCustomerId());
     }
 
     @Override
@@ -44,13 +41,4 @@ public class DatabaseServiceJobs implements IServiceJobs {
     public void clear() {
         // TODO Auto-generated method stub
     }
-
-    public List<Customer> getCustomersList() {
-        return customersList;
-    }
-
-    public List<Order> getOrdersListForCustomer() {
-        return ordersList;
-    }
-
 }

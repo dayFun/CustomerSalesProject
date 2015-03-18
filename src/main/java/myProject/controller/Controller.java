@@ -1,39 +1,46 @@
 package myProject.controller;
 
-import java.util.List;
+import java.awt.event.ItemEvent;
 
 import myProject.dao.CustomerDao;
 import myProject.dao.OrdersDao;
-import myProject.model.Customer;
-import myProject.model.Order;
+import myProject.events.LoadCustomersEvent;
+import myProject.listeners.ILoadCustomersListener;
+import myProject.listeners.ISelectCustomerListener;
+import myProject.view.MainGUI;
 
 public class Controller {
 
     private DatabaseServiceJobs dbServiceJobs;
+    private MainGUI mainGUI;
 
-    public Controller() {
+    public Controller(MainGUI mainGUI) {
+        this.mainGUI = mainGUI;
         dbServiceJobs = new DatabaseServiceJobs(new CustomerDao(), new OrdersDao());
+        initListeners();
     }
 
-    public List<Customer> getCustomers() {
-        return dbServiceJobs.getCustomersList();
+    private void initListeners() {
+        mainGUI.setLoadCustomersListener(new ILoadCustomersListener() {
+            @Override
+            public void loadCustomers() {
+                dbServiceJobs.loadCustomers();
+            }
+        });
+
+        mainGUI.setSelectCustomerListener(new ISelectCustomerListener() {
+            @Override
+            public void populateComboBox(LoadCustomersEvent e) {
+                System.err.println("Did I make it here???");
+
+            }
+
+            @Override
+            public void selectedCustomerEvent(ItemEvent e) {}
+        });
     }
 
-    public List<Order> getOrdersForCustomer() {
-        return dbServiceJobs.getOrdersListForCustomer();
+    public MainGUI getCustomerGUI() {
+        return mainGUI;
     }
-
-    public void loadCustomers() {
-        dbServiceJobs.loadCustomers();
-    }
-
-    public void loadOrdersForCustomer(Customer customer) {
-        dbServiceJobs.loadOrdersForCustomer(customer);
-    }
-
-    public void exit() {
-        System.exit(0);
-    }
-
-
 }
