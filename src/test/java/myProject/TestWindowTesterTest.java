@@ -8,7 +8,7 @@ import com.windowtester.runtime.swing.locator.JMenuItemLocator;
 public class TestWindowTesterTest extends UITestCaseSwing {
 
     public TestWindowTesterTest() {
-        super(myProject.Main.class);
+        super(myProject.Application.class);
     }
 
     public void testTestWindowTester() throws Exception {

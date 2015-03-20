@@ -30,11 +30,9 @@ public class MainMenuBar extends JMenuBar {
         file.setMnemonic(KeyEvent.VK_F);
 
         loadCustomersMenuItem = new JMenuItem("Load Customers");
-        // loadCustomersMenuItem.addActionListener(this);
-        file.add(loadCustomersMenuItem);
+        file.add(getLoadCustomersMenuItem());
 
         exitMenuItem = new JMenuItem("Exit");
-        // exitMenuItem.addActionListener(this);
         exitMenuItem.setToolTipText("Exit application");
         file.add(exitMenuItem);
 
@@ -46,7 +44,6 @@ public class MainMenuBar extends JMenuBar {
         help.setMnemonic(KeyEvent.VK_F);
 
         preferencesMenuItem = new JMenuItem("Preferences");
-        // preferencesMenuItem.addActionListener(this);
 
         KeyStroke ctrlP = KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_MASK);
         preferencesMenuItem.setAccelerator(ctrlP);
@@ -55,12 +52,8 @@ public class MainMenuBar extends JMenuBar {
         return help;
     }
 
-    public void setMenuItemListener(IMenuItemListener menuItemListener) {
-        this.menuItemListener = menuItemListener;
-    }
-
-    public void setLoadCustomersListener(ILoadCustomersListener loadCustomersListener) {
-        this.loadCustomersListener = loadCustomersListener;
+    public JMenuItem getLoadCustomersMenuItem() {
+        return loadCustomersMenuItem;
     }
 
     // @Override

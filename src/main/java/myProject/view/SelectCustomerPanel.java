@@ -4,13 +4,12 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import myProject.events.LoadCustomersEvent;
-import myProject.listeners.ISelectCustomerListener;
 import myProject.model.Customer;
 
 public class SelectCustomerPanel extends JPanel {
@@ -19,7 +18,6 @@ public class SelectCustomerPanel extends JPanel {
 
     private JLabel selectCustomerLabel;
     private JComboBox<Customer> customerComboBox;
-    private ISelectCustomerListener customerListener;
 
     public SelectCustomerPanel() {
         setLayout(new FlowLayout());
@@ -35,18 +33,12 @@ public class SelectCustomerPanel extends JPanel {
         add(customerComboBox);
     }
 
-    public void setSelectCustomerListener(ISelectCustomerListener customerListener) {
-        this.customerListener = customerListener;
-    }
-
-    public void populateComboBox(LoadCustomersEvent e) {
-        for (Customer customer : e.getCustomerList()) {
+    public void populateComboBox(List<Customer> customersList) {
+        for (Customer customer : customersList) {
             customerComboBox.addItem(customer);
         }
         customerComboBox.setSelectedIndex(-1);
         customerComboBox.setEnabled(true);
-
-        addItemListenerToComboBox();
     }
 
     private void addItemListenerToComboBox() {
@@ -55,7 +47,7 @@ public class SelectCustomerPanel extends JPanel {
             public void itemStateChanged(ItemEvent customerSelection) {
                 int state = customerSelection.getStateChange();
                 if (state == ItemEvent.SELECTED) {
-                    customerListener.selectedCustomerEvent(customerSelection);
+                    // customerListener.selectedCustomerEvent(customerSelection);
                 }
             }
         });

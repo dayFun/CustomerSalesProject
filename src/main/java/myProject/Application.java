@@ -6,18 +6,19 @@ import myProject.dao.CustomerDao;
 import myProject.dao.OrdersDao;
 import myProject.model.DatabaseServiceJobs;
 import myProject.presenter.Presenter;
-import myProject.view.CustomerSalesView;
+import myProject.view.SalesView;
 
-public class Main {
+public class Application {
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                CustomerSalesView customerSalesView = new CustomerSalesView();
+                SalesView customerSalesView = new SalesView();
                 DatabaseServiceJobs dbServiceJobs = new DatabaseServiceJobs(new CustomerDao(), new OrdersDao());
 
-                Presenter controller = new Presenter(customerSalesView, dbServiceJobs);
+                Presenter presenter = new Presenter(customerSalesView, dbServiceJobs);
+                customerSalesView.attachListeners(presenter);
 
                 customerSalesView.setVisible(true);
             }

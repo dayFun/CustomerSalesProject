@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.prefs.Preferences;
 
 import javax.swing.JButton;
@@ -12,12 +14,11 @@ import javax.swing.JFrame;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
-import myProject.listeners.ICustomerSalesViewListener;
 import myProject.listeners.IMenuItemListener;
 import myProject.listeners.IPreferencesListener;
-import myProject.listeners.ISelectCustomerListener;
+import myProject.listeners.ISalesViewListener;
 
-public class CustomerSalesView extends JFrame {
+public class SalesView extends JFrame {
 
     private static final long serialVersionUID = -729091611169270303L;
 
@@ -30,18 +31,16 @@ public class CustomerSalesView extends JFrame {
     private JSeparator separator;
     private StatisticsPanel statisticsPanel;
     private IMenuItemListener menuListener;
-    private ISelectCustomerListener selectCustomerListener;
     private IPreferencesListener preferencesListener;
     private Preferences preferences;
 
-
-    public CustomerSalesView() {
+    public SalesView() {
         setLayout(new GridBagLayout());
 
         preferences = Preferences.userRoot().node("db");
 
         mainMenuBar = new MainMenuBar();
-        mainMenuBar.setMenuItemListener(menuListener);
+        // mainMenuBar.setMenuItemListener(menuListener);
         setJMenuBar(mainMenuBar);
 
         preferencesDialog = new PreferencesDialog(this);
@@ -49,7 +48,6 @@ public class CustomerSalesView extends JFrame {
         setDefaultPreferences();
 
         selectCustomerPanel = new SelectCustomerPanel();
-        selectCustomerPanel.setSelectCustomerListener(selectCustomerListener);
 
         ordersTablePanel = new OrdersTablePanel();
         totalSalesPanel = new TotalSalesPanel();
@@ -68,8 +66,13 @@ public class CustomerSalesView extends JFrame {
         setWindowOptions();
     }
 
-    public void attachListeners(ICustomerSalesViewListener viewListener) {
-
+    public void attachListeners(final ISalesViewListener viewListener) {
+        mainMenuBar.getLoadCustomersMenuItem().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewListener.handleLoadOrdersClicked();
+            }
+        });
     }
 
     private void setDefaultPreferences() {
@@ -79,6 +82,7 @@ public class CustomerSalesView extends JFrame {
 
         preferencesDialog.setDefaultPreferences(user, password, port);
     }
+
 
     // private void initSelectCustomerListener() {
     // selectCustomerListener = new ICustomerListener() {
@@ -203,5 +207,30 @@ public class CustomerSalesView extends JFrame {
         setSize(800, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+
+    public MainMenuBar getMainMenuBar() {
+        return mainMenuBar;
+    }
+
+    public SelectCustomerPanel getSelectCustomerPanel() {
+        return selectCustomerPanel;
+    }
+
+    public OrdersTablePanel getOrdersTablePanel() {
+        return ordersTablePanel;
+    }
+
+    public TotalSalesPanel getTotalSalesPanel() {
+        return totalSalesPanel;
+    }
+
+    public JButton getClearTableButton() {
+        return clearTableButton;
+    }
+
+    public StatisticsPanel getStatisticsPanel() {
+        return statisticsPanel;
     }
 }
