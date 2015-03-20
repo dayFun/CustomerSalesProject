@@ -12,12 +12,12 @@ import javax.swing.JFrame;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
-import myProject.listeners.ILoadCustomersListener;
+import myProject.listeners.ICustomerSalesViewListener;
 import myProject.listeners.IMenuItemListener;
 import myProject.listeners.IPreferencesListener;
 import myProject.listeners.ISelectCustomerListener;
 
-public class MainGUI extends JFrame {
+public class CustomerSalesView extends JFrame {
 
     private static final long serialVersionUID = -729091611169270303L;
 
@@ -35,7 +35,7 @@ public class MainGUI extends JFrame {
     private Preferences preferences;
 
 
-    public MainGUI() {
+    public CustomerSalesView() {
         setLayout(new GridBagLayout());
 
         preferences = Preferences.userRoot().node("db");
@@ -68,14 +68,9 @@ public class MainGUI extends JFrame {
         setWindowOptions();
     }
 
-    public void setLoadCustomersListener(final ILoadCustomersListener loadCustomersListener) {
-        mainMenuBar.setLoadCustomersListener(loadCustomersListener);
-    }
+    public void attachListeners(ICustomerSalesViewListener viewListener) {
 
-    public void setSelectCustomerListener(final ISelectCustomerListener selectCustomerListener) {
-        selectCustomerPanel.setSelectCustomerListener(selectCustomerListener);
     }
-
 
     private void setDefaultPreferences() {
         String user = preferences.get("url", "");

@@ -1,8 +1,6 @@
-package myProject.controller;
+package myProject.model;
 
 import java.util.List;
-
-import myProject.model.Customer;
 
 public interface IServiceJobs {
 

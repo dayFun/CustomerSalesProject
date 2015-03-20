@@ -1,10 +1,9 @@
-package myProject.controller;
+package myProject.model;
 
 import java.util.List;
 
 import myProject.dao.ICustomerDao;
 import myProject.dao.IOrdersDao;
-import myProject.model.Customer;
 
 public class DatabaseServiceJobs implements IServiceJobs {
 
