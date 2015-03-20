@@ -7,4 +7,6 @@ public interface ISalesViewListener {
     public void handleLoadOrdersClicked();
 
     public void handleSelectCustomerClick(ItemEvent e);
+
+    public void handleClearButtonClick();
 }

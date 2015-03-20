@@ -14,7 +14,6 @@ import javax.swing.JFrame;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
-import myProject.listeners.IMenuItemListener;
 import myProject.listeners.IPreferencesListener;
 import myProject.listeners.ISalesViewListener;
 
@@ -30,7 +29,6 @@ public class SalesView extends JFrame {
     private JButton clearTableButton;
     private JSeparator separator;
     private StatisticsPanel statisticsPanel;
-    private IMenuItemListener menuListener;
     private IPreferencesListener preferencesListener;
     private Preferences preferences;
 
@@ -71,6 +69,13 @@ public class SalesView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 viewListener.handleLoadOrdersClicked();
+            }
+        });
+
+        clearTableButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewListener.handleClearButtonClick();
             }
         });
     }
@@ -224,10 +229,6 @@ public class SalesView extends JFrame {
 
     public TotalSalesPanel getTotalSalesPanel() {
         return totalSalesPanel;
-    }
-
-    public JButton getClearTableButton() {
-        return clearTableButton;
     }
 
     public StatisticsPanel getStatisticsPanel() {

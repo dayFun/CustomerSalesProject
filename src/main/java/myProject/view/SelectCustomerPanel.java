@@ -2,8 +2,6 @@ package myProject.view;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.List;
 
 import javax.swing.JComboBox;
@@ -37,19 +35,15 @@ public class SelectCustomerPanel extends JPanel {
         for (Customer customer : customersList) {
             customerComboBox.addItem(customer);
         }
-        customerComboBox.setSelectedIndex(-1);
+        resetComboBox();
         customerComboBox.setEnabled(true);
     }
 
-    private void addItemListenerToComboBox() {
-        customerComboBox.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent customerSelection) {
-                int state = customerSelection.getStateChange();
-                if (state == ItemEvent.SELECTED) {
-                    // customerListener.selectedCustomerEvent(customerSelection);
-                }
-            }
-        });
+    public void resetComboBox() {
+        customerComboBox.setSelectedIndex(-1);
+    }
+
+    public JComboBox<Customer> getCustomerComboBox() {
+        return customerComboBox;
     }
 }

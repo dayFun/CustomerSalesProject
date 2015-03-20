@@ -30,6 +30,7 @@ public class OrdersTablePanel extends JPanel {
 
     public void setData(List<Order> dbOrdersList) {
         tableModel.setData(dbOrdersList);
+        refresh();
     }
 
     public void refresh() {
@@ -38,5 +39,6 @@ public class OrdersTablePanel extends JPanel {
 
     public void clear() {
         tableModel.clear();
+        refresh();
     }
 }

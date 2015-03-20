@@ -1,19 +1,17 @@
 package myProject;
 
-import com.windowtester.runtime.IUIContext;
-import com.windowtester.runtime.swing.UITestCaseSwing;
-import com.windowtester.runtime.swing.locator.JMenuItemLocator;
 
 
-public class TestWindowTesterTest extends UITestCaseSwing {
-
-    public TestWindowTesterTest() {
-        super(myProject.Application.class);
-    }
-
-    public void testTestWindowTester() throws Exception {
-        IUIContext ui = getUI();
-        ui.click(new JMenuItemLocator("File/Exit"));
-    }
+public class TestWindowTesterTest {
+    // extends UITestCaseSwing {
+    //
+    // public TestWindowTesterTest() {
+    // super(myProject.Application.class);
+    // }
+    //
+    // public void testTestWindowTester() throws Exception {
+    // IUIContext ui = getUI();
+    // ui.click(new JMenuItemLocator("File/Exit"));
+    // }
 
 }

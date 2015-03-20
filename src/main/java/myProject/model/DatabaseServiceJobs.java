@@ -21,13 +21,8 @@ public class DatabaseServiceJobs implements IServiceJobs {
     }
 
     @Override
-    public void showOrdersForCustomer(Customer customer) {
-        ordersDAO.getAllOrdersForCustomer(customer.getCustomerId());
-    }
-
-    @Override
-    public void loadOrdersForCustomer(Customer customer) {
-        // ordersList = ordersDAO.getAllOrdersForCustomer(customer.getCustomerId());
+    public List<Order> loadOrdersForCustomer(Customer customer) {
+        return ordersDAO.getAllOrdersForCustomer(customer.getCustomerId());
     }
 
     @Override
