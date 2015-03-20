@@ -4,11 +4,9 @@ import com.windowtester.runtime.IUIContext;
 import com.windowtester.runtime.swing.UITestCaseSwing;
 import com.windowtester.runtime.swing.locator.JMenuItemLocator;
 
+
 public class TestWindowTesterTest extends UITestCaseSwing {
 
-    /**
-     * Create an Instance
-     */
     public TestWindowTesterTest() {
         super(myProject.Main.class);
     }
