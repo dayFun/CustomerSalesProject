@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="myProject.CustomerDAOTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2015-02-19T04:37:53" hostname="lighthouse" time="0.015">
+<testsuite name="myProject.CustomerDAOTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2015-03-21T20:39:43" hostname="Lighthouse" time="0.019">
   <properties/>
-  <testcase name="testGetAllCustomersReturnsCorrectSize" classname="myProject.CustomerDAOTest" time="0.015"/>
+  <testcase name="testGetAllCustomersReturnsCorrectSize" classname="myProject.CustomerDAOTest" time="0.019"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

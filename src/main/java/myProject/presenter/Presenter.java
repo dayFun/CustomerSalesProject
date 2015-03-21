@@ -27,19 +27,26 @@ public class Presenter implements ISalesViewListener {
         List<Customer> customersList = dbServiceJobs.loadCustomers();
         salesView.getSelectCustomerPanel().populateComboBox(customersList);
         addItemListenerToComboBox();
+        salesView.getStatisticsPanel().setRecordsRead(customersList.size());
     }
 
     @Override
     public void handleSelectCustomerClick(ItemEvent event) {
+        salesView.getOrdersTablePanel().clear();
         Customer selectedCustomer = (Customer) event.getItem();
-        List<Order> orders = dbServiceJobs.loadOrdersForCustomer(selectedCustomer);
-        salesView.getOrdersTablePanel().setData(orders);
+        int customerId = selectedCustomer.getCustomerId();
+
+        List<Order> ordersList = dbServiceJobs.loadOrdersForCustomer(customerId);
+        salesView.getOrdersTablePanel().setData(ordersList);
+        salesView.getTotalSalesPanel().setTotalSalesAmount(dbServiceJobs.getTotalSales(customerId));
+        salesView.getStatisticsPanel().setSalesOnFile(ordersList.size());
     }
 
     @Override
     public void handleClearButtonClick() {
         salesView.getOrdersTablePanel().clear();
         salesView.getSelectCustomerPanel().resetComboBox();
+        salesView.getStatisticsPanel().disableLabels();
     }
 
     private void addItemListenerToComboBox() {

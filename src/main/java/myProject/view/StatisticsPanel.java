@@ -16,13 +16,33 @@ public class StatisticsPanel extends JPanel {
     public StatisticsPanel() {
         setLayout(new FlowLayout());
 
-        statLabel = new JLabel("Records Read = ");
-        statLabel.setVisible(false);
-
+        statLabel = new JLabel();
         numberLabel = new JLabel();
-        numberLabel.setVisible(false);
+
+        disableLabels();
 
         add(statLabel);
         add(numberLabel);
+    }
+
+    public void enableLabels() {
+        statLabel.setVisible(true);
+        numberLabel.setVisible(true);
+    }
+
+    public void disableLabels() {
+        statLabel.setVisible(false);
+        numberLabel.setVisible(false);
+    }
+
+    public void setRecordsRead(int numRecords) {
+        enableLabels();
+        statLabel.setText("Records Read = ");
+        numberLabel.setText(String.valueOf(numRecords));
+    }
+
+    public void setSalesOnFile(int numSales) {
+        statLabel.setText("Sales on File = ");
+        numberLabel.setText(String.valueOf(numSales));
     }
 }

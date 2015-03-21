@@ -6,9 +6,9 @@ public interface IServiceJobs {
 
     public List<Customer> loadCustomers();
 
-    public List<Order> loadOrdersForCustomer(Customer customer);
+    public List<Order> loadOrdersForCustomer(int customerId);
 
-    public void getTotalSalesForCustomer(Customer customer);
+    public double getTotalSales(int customerId);
 
     public void clear();
 

@@ -1,6 +1,7 @@
 package myProject.view;
 
 import java.awt.FlowLayout;
+import java.text.NumberFormat;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,5 +21,12 @@ public class TotalSalesPanel extends JPanel {
 
         add(totalSalesLabel);
         add(totalSalesAmountLabel);
+    }
+
+    public void setTotalSalesAmount(double totalSalesAmount) {
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+        String totalSales = formatter.format(totalSalesAmount);
+
+        totalSalesAmountLabel.setText(totalSales);
     }
 }

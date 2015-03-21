@@ -21,14 +21,13 @@ public class DatabaseServiceJobs implements IServiceJobs {
     }
 
     @Override
-    public List<Order> loadOrdersForCustomer(Customer customer) {
-        return ordersDAO.getAllOrdersForCustomer(customer.getCustomerId());
+    public List<Order> loadOrdersForCustomer(int customerId) {
+        return ordersDAO.loadOrdersForCustomer(customerId);
     }
 
     @Override
-    public void getTotalSalesForCustomer(Customer customer) {
-        // TODO Auto-generated method stub
-
+    public double getTotalSales(int customerId) {
+        return ordersDAO.calculateTotalSalesForCustomer(customerId);
     }
 
     @Override
