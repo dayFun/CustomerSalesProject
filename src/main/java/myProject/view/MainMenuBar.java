@@ -8,17 +8,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-import myProject.listeners.ILoadCustomersListener;
-import myProject.listeners.IMenuItemListener;
-
 public class MainMenuBar extends JMenuBar {
 
     private static final long serialVersionUID = -5565623731124527013L;
     private JMenuItem loadCustomersMenuItem;
     private JMenuItem exitMenuItem;
     private JMenuItem preferencesMenuItem;
-    private IMenuItemListener menuItemListener;
-    private ILoadCustomersListener loadCustomersListener;
 
     public MainMenuBar() {
         add(createFileMenu());
