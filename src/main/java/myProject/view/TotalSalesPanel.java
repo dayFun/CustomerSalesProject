@@ -6,6 +6,7 @@ import java.text.NumberFormat;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class TotalSalesPanel extends JPanel {
 
@@ -18,6 +19,7 @@ public class TotalSalesPanel extends JPanel {
 
         totalSalesLabel = new JLabel("Total Sales - All Orders: ", 10);
         totalSalesAmountLabel = new JTextField("$0.00", 10);
+        totalSalesAmountLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
         add(totalSalesLabel);
         add(totalSalesAmountLabel);
@@ -28,5 +30,9 @@ public class TotalSalesPanel extends JPanel {
         String totalSales = formatter.format(totalSalesAmount);
 
         totalSalesAmountLabel.setText(totalSales);
+    }
+
+    public void resetTotalSales() {
+        totalSalesAmountLabel.setText("");
     }
 }

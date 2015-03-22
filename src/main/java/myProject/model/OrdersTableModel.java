@@ -1,6 +1,7 @@
 package myProject.model;
 
 
+import java.text.NumberFormat;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
@@ -20,7 +21,7 @@ public class OrdersTableModel extends AbstractTableModel {
         }
     }
 
-    public List<Order> getOrdersList() {
+    private List<Order> getOrdersList() {
         return ordersList;
     }
 
@@ -44,7 +45,7 @@ public class OrdersTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         if (getOrdersList().isEmpty()) {
-            if (columnIndex == 4) {
+            if (columnIndex == columnHeaders.length - 1) {
                 return "No Sales on File";
             } else {
                 return null;
@@ -62,7 +63,7 @@ public class OrdersTableModel extends AbstractTableModel {
             case 3:
                 return order.getItemCount();
             case 4:
-                return order.getOrderTotal();
+                return formatTotalAsCurrency(order.getOrderTotal());
             default:
                 return null;
         }
@@ -79,4 +80,9 @@ public class OrdersTableModel extends AbstractTableModel {
         }
     }
 
+    private Object formatTotalAsCurrency(double orderTotal) {
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+        String total = formatter.format(orderTotal);
+        return total;
+    }
 }

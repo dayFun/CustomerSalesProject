@@ -47,6 +47,8 @@ public class SalesView extends JFrame {
         selectCustomerPanel = new SelectCustomerPanel();
 
         ordersTablePanel = new OrdersTablePanel();
+        ordersTablePanel.setPreferredSize(new Dimension(600, 400));
+
         totalSalesPanel = new TotalSalesPanel();
 
         clearTableButton = new JButton("Clear");
@@ -145,7 +147,7 @@ public class SalesView extends JFrame {
 
         gc.gridx = 0;
         gc.gridy = 2;
-        gc.insets = new Insets(0, 0, 0, 0);
+        gc.insets = new Insets(0, 0, 0, 95);
         gc.anchor = GridBagConstraints.LINE_END;
 
         add(totalSalesPanel, gc);
@@ -154,7 +156,7 @@ public class SalesView extends JFrame {
 
         gc.gridx = 0;
         gc.gridy = 3;
-        gc.insets = new Insets(0, 0, 0, 0);
+        gc.insets = new Insets(3, 0, 3, 0);
         gc.anchor = GridBagConstraints.CENTER;
 
         add(clearTableButton, gc);
@@ -172,7 +174,8 @@ public class SalesView extends JFrame {
         gc.gridx = 0;
         gc.gridy = 5;
         gc.insets = new Insets(0, 0, 0, 0);
-        gc.fill = GridBagConstraints.HORIZONTAL;
+        gc.fill = 0;
+        gc.anchor = GridBagConstraints.LINE_START;
 
         add(statisticsPanel, gc);
     }
@@ -183,7 +186,6 @@ public class SalesView extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-
 
     public MainMenuBar getMainMenuBar() {
         return mainMenuBar;

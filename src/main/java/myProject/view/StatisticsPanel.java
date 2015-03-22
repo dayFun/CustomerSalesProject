@@ -4,12 +4,10 @@ import java.awt.FlowLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 
 public class StatisticsPanel extends JPanel {
 
     private static final long serialVersionUID = -2289445551623379638L;
-    private JSeparator separator;
     private JLabel statLabel;
     private JLabel numberLabel;
 
@@ -19,10 +17,10 @@ public class StatisticsPanel extends JPanel {
         statLabel = new JLabel();
         numberLabel = new JLabel();
 
-        disableLabels();
-
         add(statLabel);
         add(numberLabel);
+
+        disableLabels();
     }
 
     public void enableLabels() {

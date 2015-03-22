@@ -46,6 +46,7 @@ public class Presenter implements ISalesViewListener {
     public void handleClearButtonClick() {
         salesView.getOrdersTablePanel().clear();
         salesView.getSelectCustomerPanel().resetComboBox();
+        salesView.getTotalSalesPanel().resetTotalSales();
         salesView.getStatisticsPanel().disableLabels();
     }
 
