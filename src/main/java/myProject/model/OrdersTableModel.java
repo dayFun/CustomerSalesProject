@@ -1,12 +1,16 @@
 package myProject.model;
 
+
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+
 public class OrdersTableModel extends AbstractTableModel {
 
     private static final long serialVersionUID = 2882962431340365936L;
+    private static final int NO_SALES_ON_FILE = 1;
+
     private String[] columnHeaders = {"Order Date", "Order ID", "Ship Date", "Item Count", "Order Total"};
     private List<Order> ordersList;
 
@@ -23,7 +27,11 @@ public class OrdersTableModel extends AbstractTableModel {
     @Override
     public int getRowCount() {
         if (getOrdersList() != null) {
-            return getOrdersList().size();
+            if (getOrdersList().isEmpty()) {
+                return NO_SALES_ON_FILE;
+            } else {
+                return getOrdersList().size();
+            }
         }
         return 0;
     }
@@ -35,6 +43,13 @@ public class OrdersTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
+        if (getOrdersList().isEmpty()) {
+            if (columnIndex == 4) {
+                return "No Sales on File";
+            } else {
+                return null;
+            }
+        }
         Order order = getOrdersList().get(rowIndex);
 
         switch (columnIndex) {

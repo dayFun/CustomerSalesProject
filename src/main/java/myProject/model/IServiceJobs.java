@@ -10,6 +10,4 @@ public interface IServiceJobs {
 
     public double getTotalSales(int customerId);
 
-    public void clear();
-
 }

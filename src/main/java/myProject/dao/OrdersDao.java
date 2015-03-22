@@ -29,7 +29,7 @@ public class OrdersDao implements IOrdersDao {
             resultSet.first();
 
             if (!resultSet.next()) {
-                // Empty
+
             } else {
 
                 do {

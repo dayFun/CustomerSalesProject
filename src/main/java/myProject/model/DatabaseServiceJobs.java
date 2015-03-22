@@ -29,9 +29,4 @@ public class DatabaseServiceJobs implements IServiceJobs {
     public double getTotalSales(int customerId) {
         return ordersDAO.calculateTotalSalesForCustomer(customerId);
     }
-
-    @Override
-    public void clear() {
-        // TODO Auto-generated method stub
-    }
 }

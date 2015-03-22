@@ -1,0 +1,10 @@
+TO DO:
+
+When customer has no sales---> Show "No Sales on File" as 1 record in table
+Wire up preferences
+Fix Clear Button Click resetting number of records read
+Fix table margins---> Inside the table + make actual table bigger
+Left Justify Statistics Panel
+Add space between clear button and separator
+Add space between separator and statistics panels
+

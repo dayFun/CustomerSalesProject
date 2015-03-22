@@ -38,7 +38,6 @@ public class SalesView extends JFrame {
         preferences = Preferences.userRoot().node("db");
 
         mainMenuBar = new MainMenuBar();
-        // mainMenuBar.setMenuItemListener(menuListener);
         setJMenuBar(mainMenuBar);
 
         preferencesDialog = new PreferencesDialog(this);
@@ -88,39 +87,10 @@ public class SalesView extends JFrame {
         preferencesDialog.setDefaultPreferences(user, password, port);
     }
 
+    public void showPreferencesDialog() {
+        preferencesDialog.setVisible(true);
+    }
 
-    // private void initSelectCustomerListener() {
-    // selectCustomerListener = new ICustomerListener() {
-    // @Override
-    // public void customersLoaded(LoadCustomersEvent e) {
-    // selectCustomerPanel.populateComboBox(e);
-    // }
-    //
-    // @Override
-    // public void selectedCustomerEvent(ItemEvent e) {
-    // Customer selectedCustomer = (Customer) e.getItem();
-    // controller.loadOrdersForCustomer(selectedCustomer);
-    // ordersTablePanel.clear();
-    // ordersTablePanel.setData(controller.getOrdersForCustomer());
-    // ordersTablePanel.refresh();
-    // }
-    // };
-    // }
-
-    // private void initMenuItemListener() {
-    // menuListener = new IMenuItemListener() {
-    // @Override
-    // public void getCustomersFromDatabase() {
-    // controller.loadCustomers();
-    // selectCustomerListener.customersLoaded(new LoadCustomersEvent(this,
-    // controller.getCustomers()));
-    //
-    // }
-    //
-    // @Override
-    // public void showPreferencesDialog() {
-    // preferencesDialog.setVisible(true);
-    // }
     //
     // @Override
     // public void exitApplication() {
