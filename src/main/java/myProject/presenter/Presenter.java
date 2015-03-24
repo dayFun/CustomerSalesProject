@@ -3,9 +3,12 @@ package myProject.presenter;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.List;
+import java.util.prefs.Preferences;
 
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
+import myProject.listeners.IPreferencesListener;
 import myProject.listeners.ISalesViewListener;
 import myProject.model.Customer;
 import myProject.model.DatabaseServiceJobs;
@@ -26,7 +29,7 @@ public class Presenter implements ISalesViewListener {
     public void handleLoadOrdersClicked() {
         List<Customer> customersList = dbServiceJobs.loadCustomers();
         salesView.getSelectCustomerPanel().populateComboBox(customersList);
-        addItemListenerToComboBox();
+        initComboBoxListener();
         salesView.getStatisticsPanel().setRecordsRead(customersList.size());
     }
 
@@ -50,7 +53,50 @@ public class Presenter implements ISalesViewListener {
         salesView.getStatisticsPanel().disableLabels();
     }
 
-    private void addItemListenerToComboBox() {
+    @Override
+    public void handleExitButtonClick() {
+        int action =
+                JOptionPane.showConfirmDialog(salesView, "Are you sure you want to exit the application?",
+                        "Confirm Exit", JOptionPane.OK_CANCEL_OPTION);
+
+        if (action == JOptionPane.OK_OPTION) {
+            System.exit(0);
+        }
+
+    }
+
+    @Override
+    public void handlePreferencesClicked() {
+        // setDefaultPreferences();
+        salesView.getPreferencesDialog().setVisible(true);
+        initPreferencesListener();
+    }
+
+    private void setDefaultPreferences() {
+        Preferences prefs = salesView.getPreferences();
+        String url = prefs.get("url", "");
+        String user = prefs.get("user", "");
+        String password = prefs.get("password", "");
+        String port = prefs.get("port", "3306");
+
+        salesView.getPreferencesDialog().setDefaultPreferences(url, user, password, port);
+    }
+
+    private void initPreferencesListener() {
+        salesView.getPreferencesDialog().setPreferencesListener(new IPreferencesListener() {
+            @Override
+            public void preferencesSet(String url, String user, String password, String port) {
+                Preferences prefs = salesView.getPreferences();
+                prefs.put("url", url);
+                prefs.put("user", url);
+                prefs.put("password", password);
+                prefs.put("port", port);
+                System.err.println("Preferences SET!!!!!!");
+            }
+        });
+    }
+
+    private void initComboBoxListener() {
         JComboBox<Customer> customerComboBox = salesView.getSelectCustomerPanel().getCustomerComboBox();
         customerComboBox.addItemListener(new ItemListener() {
             @Override
@@ -62,4 +108,5 @@ public class Presenter implements ISalesViewListener {
             }
         });
     }
+
 }

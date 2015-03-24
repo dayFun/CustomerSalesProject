@@ -51,6 +51,15 @@ public class MainMenuBar extends JMenuBar {
         return loadCustomersMenuItem;
     }
 
+    public JMenuItem getExitMenuItem() {
+        return exitMenuItem;
+    }
+
+    public JMenuItem getPreferencesMenuItem() {
+        return preferencesMenuItem;
+    }
+
+
     // @Override
     // public void actionPerformed(ActionEvent e) {
     // if (e.getSource() == exitMenuItem) {

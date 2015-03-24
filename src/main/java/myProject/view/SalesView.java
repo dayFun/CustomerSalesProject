@@ -14,7 +14,6 @@ import javax.swing.JFrame;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
-import myProject.listeners.IPreferencesListener;
 import myProject.listeners.ISalesViewListener;
 
 public class SalesView extends JFrame {
@@ -29,20 +28,17 @@ public class SalesView extends JFrame {
     private JButton clearTableButton;
     private JSeparator separator;
     private StatisticsPanel statisticsPanel;
-    private IPreferencesListener preferencesListener;
     private Preferences preferences;
 
     public SalesView() {
         setLayout(new GridBagLayout());
 
-        preferences = Preferences.userRoot().node("db");
+        preferences = Preferences.userRoot().node("dbCredentials");
 
         mainMenuBar = new MainMenuBar();
         setJMenuBar(mainMenuBar);
 
         preferencesDialog = new PreferencesDialog(this);
-        preferencesDialog.setPreferencesListener(preferencesListener);
-        setDefaultPreferences();
 
         selectCustomerPanel = new SelectCustomerPanel();
 
@@ -73,52 +69,55 @@ public class SalesView extends JFrame {
             }
         });
 
+        mainMenuBar.getExitMenuItem().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewListener.handleExitButtonClick();
+            }
+        });
+
+        mainMenuBar.getPreferencesMenuItem().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewListener.handlePreferencesClicked();
+            }
+        });
         clearTableButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 viewListener.handleClearButtonClick();
             }
         });
+
     }
 
-    private void setDefaultPreferences() {
-        String user = preferences.get("url", "");
-        String password = preferences.get("password", "");
-        Integer port = preferences.getInt("port", 3306);
-
-        preferencesDialog.setDefaultPreferences(user, password, port);
+    public MainMenuBar getMainMenuBar() {
+        return mainMenuBar;
     }
 
-    public void showPreferencesDialog() {
-        preferencesDialog.setVisible(true);
+    public SelectCustomerPanel getSelectCustomerPanel() {
+        return selectCustomerPanel;
     }
 
-    //
-    // @Override
-    // public void exitApplication() {
-    // int action =
-    // JOptionPane.showConfirmDialog(MainGUI.this, "Are you sure you want to exit the application?",
-    // "Confirm Exit", JOptionPane.OK_CANCEL_OPTION);
-    //
-    // if (action == JOptionPane.OK_OPTION) {
-    // controller.exit();
-    // }
-    // }
-    // };
-    //
-    // }
-    //
-    // private void initPreferencesListener() {
-    // preferencesListener = new IPreferencesListener() {
-    // @Override
-    // public void preferencesSet(String user, String password, int port) {
-    // preferences.put("url", user);
-    // preferences.put("password", password);
-    // preferences.putInt("port", port);
-    // }
-    // };
-    //
-    // }
+    public OrdersTablePanel getOrdersTablePanel() {
+        return ordersTablePanel;
+    }
+
+    public TotalSalesPanel getTotalSalesPanel() {
+        return totalSalesPanel;
+    }
+
+    public StatisticsPanel getStatisticsPanel() {
+        return statisticsPanel;
+    }
+
+    public PreferencesDialog getPreferencesDialog() {
+        return preferencesDialog;
+    }
+
+    public Preferences getPreferences() {
+        return preferences;
+    }
 
     private void layoutComponents() {
         GridBagConstraints gc = new GridBagConstraints();
@@ -185,25 +184,5 @@ public class SalesView extends JFrame {
         setSize(800, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
-
-    public MainMenuBar getMainMenuBar() {
-        return mainMenuBar;
-    }
-
-    public SelectCustomerPanel getSelectCustomerPanel() {
-        return selectCustomerPanel;
-    }
-
-    public OrdersTablePanel getOrdersTablePanel() {
-        return ordersTablePanel;
-    }
-
-    public TotalSalesPanel getTotalSalesPanel() {
-        return totalSalesPanel;
-    }
-
-    public StatisticsPanel getStatisticsPanel() {
-        return statisticsPanel;
     }
 }

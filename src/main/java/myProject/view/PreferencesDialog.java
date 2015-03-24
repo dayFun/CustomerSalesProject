@@ -16,9 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JSpinner;
 import javax.swing.JTextField;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.border.Border;
 
 import myProject.listeners.IPreferencesListener;
@@ -29,9 +27,10 @@ public class PreferencesDialog extends JDialog {
 
     private JButton okButton;
     private JButton cancelButton;
-    private JSpinner portSpinner;
-    private JTextField userField;
+    private JTextField urlField;
+    private JTextField usernameField;
     private JPasswordField passwordfield;
+    private JTextField portField;
     private IPreferencesListener preferencesListener;
 
     public PreferencesDialog(JFrame parent) {
@@ -49,32 +48,35 @@ public class PreferencesDialog extends JDialog {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String username = userField.getText();
-                Integer port = (Integer) portSpinner.getValue();
+                String url = urlField.getText();
+                String user = usernameField.getText();
+                String port = portField.getText();
                 char[] password = passwordfield.getPassword();
-
-
                 if (preferencesListener != null) {
-                    preferencesListener.preferencesSet(username, new String(password), port);
+                    preferencesListener.preferencesSet(url, user, new String(password), port);
                 }
                 setVisible(false);
             }
         });
 
-        SpinnerNumberModel spinnerModel = new SpinnerNumberModel(3306, 0, 9999, 1);
-        portSpinner = new JSpinner(spinnerModel);
-
-        userField = new JTextField(10);
+        urlField = new JTextField(10);
+        usernameField = new JTextField(10);
         passwordfield = new JPasswordField(10);
+        portField = new JTextField(10);
 
         initLayout();
         setLocationRelativeTo(parent);
     }
 
-    public void setDefaultPreferences(String url, String password, int port) {
-        userField.setText(url);
+    public void setPreferencesListener(IPreferencesListener preferencesListener) {
+        this.preferencesListener = preferencesListener;
+    }
+
+    public void setDefaultPreferences(String url, String user, String password, String port) {
+        urlField.setText(url);
+        usernameField.setText(user);
         passwordfield.setText(password);
-        portSpinner.setValue(port);
+        portField.setText(port);
     }
 
     private void initLayout() {
@@ -90,7 +92,7 @@ public class PreferencesDialog extends JDialog {
         add(controlsPanel, BorderLayout.CENTER);
         add(buttonsPanel, BorderLayout.SOUTH);
 
-        setSize(250, 175);
+        setSize(350, 300);
     }
 
     private JPanel layoutButtons() {
@@ -111,7 +113,6 @@ public class PreferencesDialog extends JDialog {
         JPanel controlsPanel = new JPanel();
         controlsPanel.setLayout(new GridBagLayout());
 
-
         GridBagConstraints gc = new GridBagConstraints();
 
         Insets rightPadding = new Insets(0, 0, 0, 15);
@@ -121,47 +122,58 @@ public class PreferencesDialog extends JDialog {
         gc.weighty = 1;
         gc.fill = GridBagConstraints.NONE;
 
+        // //////////////////////////////////////////////////////////////
         gc.gridy = 0;
         gc.gridx = 0;
         gc.anchor = GridBagConstraints.EAST;
         gc.insets = rightPadding;
-        controlsPanel.add(new JLabel("Username: "), gc);
+        controlsPanel.add(new JLabel("DB URL: "), gc);
 
         gc.gridy = 0;
         gc.gridx = 1;
         gc.anchor = GridBagConstraints.WEST;
         gc.insets = noPadding;
-        controlsPanel.add(userField, gc);
+        controlsPanel.add(urlField, gc);
 
         // \\//Row\\//\\
         gc.gridy = 1;
         gc.gridx = 0;
         gc.anchor = GridBagConstraints.EAST;
         gc.insets = rightPadding;
-        controlsPanel.add(new JLabel("Password: "), gc);
+        controlsPanel.add(new JLabel("Username: "), gc);
 
         gc.gridy = 1;
+        gc.gridx = 1;
+        gc.anchor = GridBagConstraints.WEST;
+        gc.insets = noPadding;
+        controlsPanel.add(usernameField, gc);
+
+        // \\//Row\\//\\
+        gc.gridy = 2;
+        gc.gridx = 0;
+        gc.anchor = GridBagConstraints.EAST;
+        gc.insets = rightPadding;
+        controlsPanel.add(new JLabel("Password: "), gc);
+
+        gc.gridy = 2;
         gc.gridx = 1;
         gc.anchor = GridBagConstraints.WEST;
         gc.insets = noPadding;
         controlsPanel.add(passwordfield, gc);
 
         // \\//Row\\//\\
-        gc.gridy = 2;
+        gc.gridy = 3;
         gc.gridx = 0;
         gc.anchor = GridBagConstraints.EAST;
         gc.insets = rightPadding;
         controlsPanel.add(new JLabel("Port: "), gc);
 
-        gc.gridx = 1;
-        gc.gridy = 2;
+        gc.gridx = 3;
+        gc.gridy = 1;
         gc.anchor = GridBagConstraints.WEST;
         gc.insets = noPadding;
-        controlsPanel.add(portSpinner, gc);
-        return controlsPanel;
-    }
+        controlsPanel.add(portField, gc);
 
-    public void setPreferencesListener(IPreferencesListener preferencesListener) {
-        this.preferencesListener = preferencesListener;
+        return controlsPanel;
     }
 }
