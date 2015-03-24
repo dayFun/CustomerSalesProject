@@ -7,7 +7,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.prefs.Preferences;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -28,12 +27,9 @@ public class SalesView extends JFrame {
     private JButton clearTableButton;
     private JSeparator separator;
     private StatisticsPanel statisticsPanel;
-    private Preferences preferences;
 
     public SalesView() {
         setLayout(new GridBagLayout());
-
-        preferences = Preferences.userRoot().node("dbCredentials");
 
         mainMenuBar = new MainMenuBar();
         setJMenuBar(mainMenuBar);
@@ -113,10 +109,6 @@ public class SalesView extends JFrame {
 
     public PreferencesDialog getPreferencesDialog() {
         return preferencesDialog;
-    }
-
-    public Preferences getPreferences() {
-        return preferences;
     }
 
     private void layoutComponents() {

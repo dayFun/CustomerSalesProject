@@ -67,13 +67,13 @@ public class Presenter implements ISalesViewListener {
 
     @Override
     public void handlePreferencesClicked() {
-        // setDefaultPreferences();
+        setDefaultPreferences();
         salesView.getPreferencesDialog().setVisible(true);
         initPreferencesListener();
     }
 
     private void setDefaultPreferences() {
-        Preferences prefs = salesView.getPreferences();
+        Preferences prefs = salesView.getPreferencesDialog().getPreferences();
         String url = prefs.get("url", "");
         String user = prefs.get("user", "");
         String password = prefs.get("password", "");
@@ -86,12 +86,11 @@ public class Presenter implements ISalesViewListener {
         salesView.getPreferencesDialog().setPreferencesListener(new IPreferencesListener() {
             @Override
             public void preferencesSet(String url, String user, String password, String port) {
-                Preferences prefs = salesView.getPreferences();
+                Preferences prefs = salesView.getPreferencesDialog().getPreferences();
                 prefs.put("url", url);
-                prefs.put("user", url);
+                prefs.put("user", user);
                 prefs.put("password", password);
                 prefs.put("port", port);
-                System.err.println("Preferences SET!!!!!!");
             }
         });
     }

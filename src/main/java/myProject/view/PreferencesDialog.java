@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.prefs.Preferences;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -25,16 +26,19 @@ public class PreferencesDialog extends JDialog {
 
     private static final long serialVersionUID = -1420116233713519757L;
 
+    private Preferences preferences;
     private JButton okButton;
     private JButton cancelButton;
     private JTextField urlField;
     private JTextField usernameField;
-    private JPasswordField passwordfield;
+    private JPasswordField passwordField;
     private JTextField portField;
     private IPreferencesListener preferencesListener;
 
     public PreferencesDialog(JFrame parent) {
         super(parent, "Database Settings", false);
+
+        preferences = Preferences.userRoot().node("myProject/dao/preferences");
 
         okButton = new JButton("OK");
         cancelButton = new JButton("Cancel");
@@ -51,7 +55,7 @@ public class PreferencesDialog extends JDialog {
                 String url = urlField.getText();
                 String user = usernameField.getText();
                 String port = portField.getText();
-                char[] password = passwordfield.getPassword();
+                char[] password = passwordField.getPassword();
                 if (preferencesListener != null) {
                     preferencesListener.preferencesSet(url, user, new String(password), port);
                 }
@@ -59,9 +63,9 @@ public class PreferencesDialog extends JDialog {
             }
         });
 
-        urlField = new JTextField(10);
+        urlField = new JTextField(20);
         usernameField = new JTextField(10);
-        passwordfield = new JPasswordField(10);
+        passwordField = new JPasswordField(10);
         portField = new JTextField(10);
 
         initLayout();
@@ -72,10 +76,14 @@ public class PreferencesDialog extends JDialog {
         this.preferencesListener = preferencesListener;
     }
 
+    public Preferences getPreferences() {
+        return preferences;
+    }
+
     public void setDefaultPreferences(String url, String user, String password, String port) {
         urlField.setText(url);
         usernameField.setText(user);
-        passwordfield.setText(password);
+        passwordField.setText(password);
         portField.setText(port);
     }
 
@@ -92,7 +100,7 @@ public class PreferencesDialog extends JDialog {
         add(controlsPanel, BorderLayout.CENTER);
         add(buttonsPanel, BorderLayout.SOUTH);
 
-        setSize(350, 300);
+        setSize(450, 200);
     }
 
     private JPanel layoutButtons() {
@@ -159,7 +167,7 @@ public class PreferencesDialog extends JDialog {
         gc.gridx = 1;
         gc.anchor = GridBagConstraints.WEST;
         gc.insets = noPadding;
-        controlsPanel.add(passwordfield, gc);
+        controlsPanel.add(passwordField, gc);
 
         // \\//Row\\//\\
         gc.gridy = 3;
@@ -168,8 +176,8 @@ public class PreferencesDialog extends JDialog {
         gc.insets = rightPadding;
         controlsPanel.add(new JLabel("Port: "), gc);
 
-        gc.gridx = 3;
-        gc.gridy = 1;
+        gc.gridy = 3;
+        gc.gridx = 1;
         gc.anchor = GridBagConstraints.WEST;
         gc.insets = noPadding;
         controlsPanel.add(portField, gc);

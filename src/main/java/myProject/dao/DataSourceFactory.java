@@ -10,12 +10,12 @@ public class DataSourceFactory {
 
     public static DataSource getMySqlDataSource() {
         Preferences prefs = Preferences.userRoot();
-        prefs = prefs.node("dbCredentials");
+        prefs = prefs.node("myProject/dao/preferences");
 
         MysqlDataSource mySqlDataSource = new MysqlDataSource();
         mySqlDataSource.setURL(prefs.get("url", "jdbc:mysql://localhost:3306/SALESDB"));
         mySqlDataSource.setUser(prefs.get("user", "root"));
-        mySqlDataSource.setURL(prefs.get("password", "Sesame"));
+        mySqlDataSource.setPassword(prefs.get("password", "Sesame"));
 
         return mySqlDataSource;
     }
