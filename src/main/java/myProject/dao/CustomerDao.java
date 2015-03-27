@@ -13,38 +13,38 @@ import myProject.model.Customer;
 
 public class CustomerDao implements ICustomerDao {
 
-	private final String SELECT_ALL_CUSTOMERS_QUERY = "SELECT * FROM CUSTOMER ORDER BY Name";
-	private List<Customer> customerList = new ArrayList<>();
+    private final String SELECT_ALL_CUSTOMERS_QUERY = "SELECT * FROM CUSTOMER ORDER BY Name";
 
-	@Override
-	public List<Customer> getAllCustomers() {
-		DataSource mySqlDataSource = DataSourceFactory.getMySqlDataSource();
+    @Override
+    public List<Customer> getAllCustomers() {
+        List<Customer> customerList = new ArrayList<>();
+        DataSource mySqlDataSource = DataSourceFactory.getMySqlDataSource();
 
-		try (Connection connection = mySqlDataSource.getConnection();
-				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery(SELECT_ALL_CUSTOMERS_QUERY);) {
+        try (Connection connection = mySqlDataSource.getConnection();
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(SELECT_ALL_CUSTOMERS_QUERY);) {
 
-			resultSet.first();
+            resultSet.first();
 
-			do {
-				// TODO: Use BasicRowProcessor!!!
-				Customer customer = new Customer();
-				customer.setCustomerId(resultSet.getInt("CUSTOMER_ID"));
-				customer.setName(resultSet.getString("NAME"));
-				customer.setAddress(resultSet.getString("ADDRESS"));
-				customer.setCity(resultSet.getString("CITY"));
-				customer.setZipCode(resultSet.getString("ZIP_CODE"));
-				customer.setAddress(resultSet.getString("AREA_CODE"));
-				customer.setPhoneNumber(resultSet.getInt("PHONE_NUMBER"));
-				customer.setSalesPersonId(resultSet.getInt("SALESPERSON_ID"));
-				customer.setCreditLimit(resultSet.getDouble("CREDIT_LIMIT"));
-				customer.setComments(resultSet.getString("COMMENTS"));
-				customerList.add(customer);
-			} while (resultSet.next());
+            do {
+                // TODO: Use BasicRowProcessor!!!
+                Customer customer = new Customer();
+                customer.setCustomerId(resultSet.getInt("CUSTOMER_ID"));
+                customer.setName(resultSet.getString("NAME"));
+                customer.setAddress(resultSet.getString("ADDRESS"));
+                customer.setCity(resultSet.getString("CITY"));
+                customer.setZipCode(resultSet.getString("ZIP_CODE"));
+                customer.setAddress(resultSet.getString("AREA_CODE"));
+                customer.setPhoneNumber(resultSet.getInt("PHONE_NUMBER"));
+                customer.setSalesPersonId(resultSet.getInt("SALESPERSON_ID"));
+                customer.setCreditLimit(resultSet.getDouble("CREDIT_LIMIT"));
+                customer.setComments(resultSet.getString("COMMENTS"));
+                customerList.add(customer);
+            } while (resultSet.next());
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return customerList;
-	}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customerList;
+    }
 }

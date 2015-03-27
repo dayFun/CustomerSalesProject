@@ -50,7 +50,7 @@ public class Presenter implements ISalesViewListener {
         salesView.getOrdersTablePanel().clear();
         salesView.getSelectCustomerPanel().resetComboBox();
         salesView.getTotalSalesPanel().resetTotalSales();
-        salesView.getStatisticsPanel().disableLabels();
+        salesView.getStatisticsPanel().setRecordsRead(dbServiceJobs.loadCustomers().size());
     }
 
     @Override

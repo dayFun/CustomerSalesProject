@@ -16,22 +16,16 @@ public class OrdersTableModel extends AbstractTableModel {
     private List<Order> ordersList;
 
     public void setData(List<Order> ordersList) {
-        if (ordersList != null) {
-            this.ordersList = ordersList;
-        }
-    }
-
-    private List<Order> getOrdersList() {
-        return ordersList;
+        this.ordersList = ordersList;
     }
 
     @Override
     public int getRowCount() {
-        if (getOrdersList() != null) {
-            if (getOrdersList().isEmpty()) {
+        if (ordersList != null) {
+            if (ordersList.isEmpty()) {
                 return NO_SALES_ON_FILE;
             } else {
-                return getOrdersList().size();
+                return ordersList.size();
             }
         }
         return 0;
@@ -44,14 +38,14 @@ public class OrdersTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        if (getOrdersList().isEmpty()) {
+        if (ordersList.isEmpty()) {
             if (columnIndex == columnHeaders.length - 1) {
                 return "No Sales on File";
             } else {
                 return null;
             }
         }
-        Order order = getOrdersList().get(rowIndex);
+        Order order = ordersList.get(rowIndex);
 
         switch (columnIndex) {
             case 0:
@@ -78,6 +72,7 @@ public class OrdersTableModel extends AbstractTableModel {
         if (ordersList != null) {
             ordersList.clear();
         }
+        ordersList = null;
     }
 
     private Object formatTotalAsCurrency(double orderTotal) {
