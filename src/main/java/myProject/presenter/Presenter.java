@@ -74,9 +74,9 @@ public class Presenter implements ISalesViewListener {
 
     private void setDefaultPreferences() {
         Preferences prefs = salesView.getPreferencesDialog().getPreferences();
-        String url = prefs.get("url", "");
-        String user = prefs.get("user", "");
-        String password = prefs.get("password", "");
+        String url = prefs.get("url", "jdbc:mysql://localhost:3306/SALESDB");
+        String user = prefs.get("user", "root");
+        String password = prefs.get("password", "root");
         String port = prefs.get("port", "3306");
 
         salesView.getPreferencesDialog().setDefaultPreferences(url, user, password, port);
